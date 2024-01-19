@@ -3,7 +3,7 @@ export const setUser = (userData) => ({ type: 'SET_USER', payload: userData });
 
 export const fetchUserData = () => async (dispatch) => {
   try {
-    const response = await fetch('http://localhost:4000/api/users/2'); // Rails API for a User
+    const response = await fetch('http://localhost:4000/api/users/6'); // Rails API for a User
 
     if (!response.ok) {
       throw new Error(`Failed to fetch user data: ${response.statusText}`);
