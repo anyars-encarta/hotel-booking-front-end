@@ -26,11 +26,8 @@ const Room = ({
 
   const handleDelete = async (roomId) => {
     try {
-      const response = await fetch(`https://localhost:4000/api/rooms/${roomId}`, {
+      const response = await fetch(`http://localhost:4000/api/rooms/${roomId}`, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
       });
 
       if (!response.ok) {
@@ -40,6 +37,25 @@ const Room = ({
       await fetchRoomAction();
     } catch (error) {
       throw new Error('Error deleting room:', error);
+    }
+  };
+
+  const handleUpdate = async (roomId) => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/rooms/${roomId}`, {
+        method: 'UPDATE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to update room: ${response.statusText}`);
+      }
+
+      await fetchRoomAction();
+    } catch (error) {
+      throw new Error('Error updating room:', error);
     }
   };
 
@@ -65,9 +81,15 @@ const Room = ({
             {singleRoom.description}
           </p>
           {user.isAdmin && (
-            <button type="button" onClick={() => handleDelete(singleRoom.id)}>
-              Delete Room
-            </button>
+            <>
+              <button type="button" onClick={() => handleDelete(singleRoom.id)}>
+                Delete Room
+              </button>
+
+              <button type="button" onClick={() => handleUpdate(singleRoom.id)}>
+                Update Room
+              </button>
+            </>
           )}
         </div>
       ))}
