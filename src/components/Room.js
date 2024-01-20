@@ -2,24 +2,34 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchRoom, fetchUserData } from '../redux/actions';
+import { fetchRoom, fetchUserData, setRoom } from '../redux/actions';
 
 const Room = ({
-  room, fetchRoomAction, user, fetchUserDataAction,
+  room, fetchRoomAction, user, fetchUserDataAction, setRoomAction,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [updatedRoomDetails, setUpdatedRoomDetails] = useState({
     name: '',
-    room_type: '',
-    description: '',
-    image: '',
+    category_id: '',
   });
 
   const [isUpdateFormOpen, setIsUpdateFormOpen] = useState({});
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch categories
+        const categoriesResponse = await fetch('http://localhost:4000/api/categories');
+
+        if (!categoriesResponse.ok) {
+          throw new Error(`Failed to fetch categories: ${categoriesResponse.statusText}`);
+        }
+
+        const categoriesData = await categoriesResponse.json();
+        setCategories(categoriesData);
+
         await Promise.all([fetchUserDataAction(), fetchRoomAction()]);
 
         setIsLoading(false);
@@ -31,6 +41,26 @@ const Room = ({
 
     fetchData();
   }, [fetchRoomAction, fetchUserDataAction]);
+
+  const getCategoryById = (categoryId) => categories.find(
+    (category) => category.id === categoryId,
+  );
+
+  const handleCategoryChange = async (categoryId) => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/categories/${categoryId}/rooms`);
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch rooms: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setRoomAction(data);
+      setSelectedCategory(categoryId);
+    } catch (error) {
+      throw new Error('Error fetching rooms:', error);
+    }
+  };
 
   const handleDelete = async (roomId) => {
     try {
@@ -83,6 +113,17 @@ const Room = ({
     }
   };
 
+  const handleRefresh = async () => {
+    try {
+      // Reset selected category and fetch all rooms
+      setSelectedCategory('');
+      await fetchRoomAction();
+    } catch (error) {
+      console.error('Error refreshing rooms:', error);
+      // Handle the error as needed
+    }
+  };
+
   if (isLoading) {
     return <div className="loading">Loading...</div>;
   }
@@ -90,6 +131,23 @@ const Room = ({
   return (
     <div className="greeting-content">
       <h1>Available Rooms</h1>
+
+      {/* Add a dropdown to select a category */}
+      <select onChange={(e) => handleCategoryChange(e.target.value)} value={selectedCategory}>
+        <option value="">List by a Category</option>
+        {/* Map over categories if available */}
+        {categories
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+      </select>
+      <button type="button" onClick={handleRefresh}>
+        Refresh
+      </button>
+
       {room.map((singleRoom) => (
         <div key={singleRoom.id}>
           <p>
@@ -98,11 +156,13 @@ const Room = ({
           </p>
           <p>
             Room Type:
-            {singleRoom.room_type}
+            {' '}
+            {getCategoryById(singleRoom.category_id)?.name || ''}
           </p>
           <p>
             Room Details:
-            {singleRoom.description}
+            {' '}
+            {getCategoryById(singleRoom.category_id)?.description || ''}
           </p>
           {user.isAdmin && (
             <>
@@ -124,29 +184,29 @@ const Room = ({
               type="text"
               placeholder="Name"
               value={updatedRoomDetails.name}
-              onChange={(e) => setUpdatedRoomDetails({ ...updatedRoomDetails, name: e.target.value })}
+              onChange={(e) => setUpdatedRoomDetails({
+                ...updatedRoomDetails, name: e.target.value,
+              })}
             />
 
-            <input
-              type="text"
-              placeholder="room type"
-              value={updatedRoomDetails.room_type}
-              onChange={(e) => setUpdatedRoomDetails({ ...updatedRoomDetails, room_type: e.target.value })}
-            />
+            {/* Add a dropdown to select a category */}
+            <select
+              value={updatedRoomDetails.category_id}
+              onChange={(e) => setUpdatedRoomDetails({
+                ...updatedRoomDetails, category_id: e.target.value,
+              })}
+            >
 
-            <input
-              type="text"
-              placeholder="description"
-              value={updatedRoomDetails.description}
-              onChange={(e) => setUpdatedRoomDetails({ ...updatedRoomDetails, description: e.target.value })}
-            />
-
-            <input
-              type="text"
-              placeholder="image"
-              value={updatedRoomDetails.image}
-              onChange={(e) => setUpdatedRoomDetails({ ...updatedRoomDetails, image: e.target.value })}
-            />
+              <option value="">Select a Category</option>
+              {/* Map over categories if available */}
+              {categories
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+            </select>
 
             <button type="button" onClick={() => handleFormSubmit(singleRoom.id)}>
               Save Changes
@@ -163,14 +223,14 @@ Room.propTypes = {
   room: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    room_type: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    category_id: PropTypes.number.isRequired,
   })).isRequired,
   fetchRoomAction: PropTypes.func.isRequired,
   user: PropTypes.shape({
     isAdmin: PropTypes.bool.isRequired,
   }).isRequired,
   fetchUserDataAction: PropTypes.func.isRequired,
+  setRoomAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -181,4 +241,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   fetchRoomAction: fetchRoom,
   fetchUserDataAction: fetchUserData,
+  setRoomAction: setRoom,
 })(Room);
