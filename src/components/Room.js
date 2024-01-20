@@ -119,8 +119,7 @@ const Room = ({
       setSelectedCategory('');
       await fetchRoomAction();
     } catch (error) {
-      console.error('Error refreshing rooms:', error);
-      // Handle the error as needed
+      throw new Error('Error refreshing rooms:', error);
     }
   };
 
@@ -152,6 +151,7 @@ const Room = ({
         <div key={singleRoom.id}>
           <p>
             Name:
+            {' '}
             {singleRoom.name}
           </p>
           <p>
