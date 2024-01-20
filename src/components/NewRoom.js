@@ -1,19 +1,26 @@
+// NewRoom.js
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { saveFormData } from '../redux/actions';
 
-const NewRoom = ({ categories, handleFormSubmit }) => {
+const NewRoom = ({ categories }) => {
+  const dispatch = useDispatch();
   const [newRoomDetails, setNewRoomDetails] = useState({
     name: '',
     category_id: '',
   });
 
-  const handleSaveChanges = async () => {
-    await handleFormSubmit(newRoomDetails);
-
-    setNewRoomDetails({
-      name: '',
-      category_id: '',
-    });
+  const handleSaveRoom = async () => {
+    try {
+      dispatch(saveFormData(newRoomDetails));
+      setNewRoomDetails({
+        name: '',
+        category_id: '',
+      });
+    } catch (error) {
+      throw new Error('Error saving room:', error);
+    }
   };
 
   // Check if categories is undefined before rendering the component
@@ -54,7 +61,7 @@ const NewRoom = ({ categories, handleFormSubmit }) => {
           ))}
       </select>
 
-      <button type="button" onClick={handleSaveChanges}>
+      <button type="button" onClick={handleSaveRoom}>
         Add Room
       </button>
     </div>
@@ -66,7 +73,7 @@ NewRoom.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   })).isRequired,
-  handleFormSubmit: PropTypes.func.isRequired,
+  // handleFormSubmit: PropTypes.func.isRequired,
 };
 
 export default NewRoom;
