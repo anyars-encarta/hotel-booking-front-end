@@ -8,6 +8,14 @@ const Room = ({
   room, fetchRoomAction, user, fetchUserDataAction,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [updatedRoomDetails, setUpdatedRoomDetails] = useState({
+    name: '',
+    room_type: '',
+    description: '',
+    image: '',
+  });
+
+  const [isUpdateFormOpen, setIsUpdateFormOpen] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,19 +48,35 @@ const Room = ({
     }
   };
 
-  const handleUpdate = async (roomId) => {
+  const handleUpdate = (roomId) => {
+    setIsUpdateFormOpen((prevState) => ({
+      ...prevState,
+      [roomId]: true,
+    }));
+
+    const selectedRoom = room.find((r) => r.id === roomId);
+    setUpdatedRoomDetails(selectedRoom);
+  };
+
+  const handleFormSubmit = async (roomId) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/rooms/${roomId}`, {
-        method: 'UPDATE',
+      const response = await fetch(`http://localhost:4000/api/rooms/${updatedRoomDetails.id}`, {
+        method: 'PATCH', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(updatedRoomDetails),
       });
 
       if (!response.ok) {
         throw new Error(`Failed to update room: ${response.statusText}`);
       }
 
+      // Close the form and fetch updated room list
+      setIsUpdateFormOpen((prevState) => ({
+        ...prevState,
+        [roomId]: false,
+      }));
       await fetchRoomAction();
     } catch (error) {
       throw new Error('Error updating room:', error);
@@ -90,6 +114,44 @@ const Room = ({
                 Update Room
               </button>
             </>
+          )}
+
+          {/* Update Form */}
+          {isUpdateFormOpen[singleRoom.id] && (
+          <div className="update-form">
+            {/* Render form inputs for each field (name, room_type, description, etc.) */}
+            <input
+              type="text"
+              placeholder="Name"
+              value={updatedRoomDetails.name}
+              onChange={(e) => setUpdatedRoomDetails({ ...updatedRoomDetails, name: e.target.value })}
+            />
+
+            <input
+              type="text"
+              placeholder="room type"
+              value={updatedRoomDetails.room_type}
+              onChange={(e) => setUpdatedRoomDetails({ ...updatedRoomDetails, room_type: e.target.value })}
+            />
+
+            <input
+              type="text"
+              placeholder="description"
+              value={updatedRoomDetails.description}
+              onChange={(e) => setUpdatedRoomDetails({ ...updatedRoomDetails, description: e.target.value })}
+            />
+
+            <input
+              type="text"
+              placeholder="image"
+              value={updatedRoomDetails.image}
+              onChange={(e) => setUpdatedRoomDetails({ ...updatedRoomDetails, image: e.target.value })}
+            />
+
+            <button type="button" onClick={() => handleFormSubmit(singleRoom.id)}>
+              Save Changes
+            </button>
+          </div>
           )}
         </div>
       ))}
