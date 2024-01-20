@@ -11,13 +11,24 @@ const NewRoom = ({ categories }) => {
     category_id: '',
   });
 
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleSaveRoom = async () => {
+    if (!newRoomDetails.name || !newRoomDetails.category_id) {
+      setErrorMessage('Please fill in all fields');
+      return;
+    }
+
     try {
       dispatch(saveFormData(newRoomDetails));
       setNewRoomDetails({
         name: '',
         category_id: '',
       });
+
+      setSuccessMessage('New Room created successfully');
+      setErrorMessage('');
     } catch (error) {
       throw new Error('Error saving room:', error);
     }
@@ -31,6 +42,10 @@ const NewRoom = ({ categories }) => {
   return (
     <div className="new-form">
       <h1>Add a New Room</h1>
+
+      {successMessage && <div className="success-message">{successMessage}</div>}
+      {/* Add error message display */}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
 
       {/* Render form inputs for each field (name, room_type, description, etc.) */}
       <input

@@ -16,6 +16,7 @@ const Room = ({
   const [isUpdateFormOpen, setIsUpdateFormOpen] = useState({});
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,6 +74,7 @@ const Room = ({
       }
 
       await fetchRoomAction();
+      setSuccessMessage('Room deleted successfully');
     } catch (error) {
       throw new Error('Error deleting room:', error);
     }
@@ -108,6 +110,7 @@ const Room = ({
         [roomId]: false,
       }));
       await fetchRoomAction();
+      setSuccessMessage('Room updated successfully');
     } catch (error) {
       throw new Error('Error updating room:', error);
     }
@@ -128,7 +131,7 @@ const Room = ({
   }
 
   return (
-    <div className="greeting-content">
+    <div className="room-content">
       <h1>Available Rooms</h1>
 
       {/* Add a dropdown to select a category */}
@@ -147,24 +150,28 @@ const Room = ({
         Refresh
       </button>
 
-      {room.map((singleRoom) => (
-        <div key={singleRoom.id}>
-          <p>
-            Name:
-            {' '}
-            {singleRoom.name}
-          </p>
-          <p>
-            Room Type:
-            {' '}
-            {getCategoryById(singleRoom.category_id)?.name || ''}
-          </p>
-          <p>
-            Room Details:
-            {' '}
-            {getCategoryById(singleRoom.category_id)?.description || ''}
-          </p>
-          {user.isAdmin && (
+      {successMessage && <div className="success-message">{successMessage}</div>}
+
+      {room
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((singleRoom) => (
+          <div key={singleRoom.id}>
+            <p>
+              Name:
+              {' '}
+              {singleRoom.name}
+            </p>
+            <p>
+              Room Type:
+              {' '}
+              {getCategoryById(singleRoom.category_id)?.name || ''}
+            </p>
+            <p>
+              Room Details:
+              {' '}
+              {getCategoryById(singleRoom.category_id)?.description || ''}
+            </p>
+            {user.isAdmin && (
             <>
               <button type="button" onClick={() => handleDelete(singleRoom.id)}>
                 Delete Room
@@ -174,47 +181,47 @@ const Room = ({
                 Update Room
               </button>
             </>
-          )}
+            )}
 
-          {/* Update Form */}
-          {isUpdateFormOpen[singleRoom.id] && (
-          <div className="update-form">
-            {/* Render form inputs for each field (name, room_type, description, etc.) */}
-            <input
-              type="text"
-              placeholder="Name"
-              value={updatedRoomDetails.name}
-              onChange={(e) => setUpdatedRoomDetails({
-                ...updatedRoomDetails, name: e.target.value,
-              })}
-            />
+            {/* Update Form */}
+            {isUpdateFormOpen[singleRoom.id] && (
+            <div className="update-form">
+              {/* Render form inputs for each field (name, room_type, description, etc.) */}
+              <input
+                type="text"
+                placeholder="Name"
+                value={updatedRoomDetails.name}
+                onChange={(e) => setUpdatedRoomDetails({
+                  ...updatedRoomDetails, name: e.target.value,
+                })}
+              />
 
-            {/* Add a dropdown to select a category */}
-            <select
-              value={updatedRoomDetails.category_id}
-              onChange={(e) => setUpdatedRoomDetails({
-                ...updatedRoomDetails, category_id: e.target.value,
-              })}
-            >
+              {/* Add a dropdown to select a category */}
+              <select
+                value={updatedRoomDetails.category_id}
+                onChange={(e) => setUpdatedRoomDetails({
+                  ...updatedRoomDetails, category_id: e.target.value,
+                })}
+              >
 
-              <option value="">Select a Category</option>
-              {/* Map over categories if available */}
-              {categories
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-            </select>
+                <option value="">Select a Category</option>
+                {/* Map over categories if available */}
+                {categories
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+              </select>
 
-            <button type="button" onClick={() => handleFormSubmit(singleRoom.id)}>
-              Save Changes
-            </button>
+              <button type="button" onClick={() => handleFormSubmit(singleRoom.id)}>
+                Save Changes
+              </button>
+            </div>
+            )}
           </div>
-          )}
-        </div>
-      ))}
+        ))}
     </div>
   );
 };
