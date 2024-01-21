@@ -1,32 +1,42 @@
 // reducers.js
 const initialState = {
-  room: [],
+  rooms: [],
   user: {
     isAdmin: false,
   },
+  categories: [],
 };
 
-const roomReducer = (state = initialState, action) => {
+export const roomReducer = (state = initialState.rooms, action) => {
   switch (action.type) {
     case 'SET_ROOM':
-      return {
-        ...state,
-        room: action.payload,
-      };
-
-    case 'SET_USER':
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          ...action.payload,
-          isAdmin: action.payload.admin || false,
-        },
-      };
+      return action.payload;
 
     default:
       return state;
   }
 };
 
-export default roomReducer;
+export const categoryReducer = (state = initialState.categories, action) => {
+  switch (action.type) {
+    case 'SET_CATEGORY':
+      return action.payload;
+
+    default:
+      return state;
+  }
+};
+
+export const userReducer = (state = initialState.user, action) => {
+  switch (action.type) {
+    case 'SET_USER':
+      return {
+        ...state,
+        ...action.payload,
+        isAdmin: action.payload.admin || false,
+      };
+
+    default:
+      return state;
+  }
+};

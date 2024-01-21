@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 import { fetchRoom, fetchUserData, setRoom } from '../redux/actions';
 
 const Room = ({
-  room, fetchRoomAction, user, fetchUserDataAction,
+  rooms, fetchRoomAction, user, fetchUserDataAction,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [updatedRoomDetails, setUpdatedRoomDetails] = useState({
+    id: '',
     name: '',
     category_id: '',
   });
@@ -63,7 +64,28 @@ const Room = ({
     }
   };
 
-  const handleFormSubmit = async (roomId) => {
+  const handleFormOpen = (roomId) => {
+    setIsUpdateFormOpen((prevState) => ({
+      ...prevState,
+      [roomId]: true,
+    }));
+    const room = rooms.find((singleRoom) => singleRoom.id === roomId);
+    setUpdatedRoomDetails(room);
+  };
+
+  const handleFormClose = (roomId) => {
+    setIsUpdateFormOpen((prevState) => ({
+      ...prevState,
+      [roomId]: false,
+    }));
+    setUpdatedRoomDetails({
+      id: '',
+      name: '',
+      category_id: '',
+    });
+  };
+
+  const handleFormSubmit = async () => {
     try {
       const response = await fetch(`http://localhost:4000/api/rooms/${updatedRoomDetails.id}`, {
         method: 'PATCH', // or 'PUT'
@@ -77,11 +99,7 @@ const Room = ({
         throw new Error(`Failed to update room: ${response.statusText}`);
       }
 
-      // Close the form and fetch updated room list
-      setIsUpdateFormOpen((prevState) => ({
-        ...prevState,
-        [roomId]: false,
-      }));
+      handleFormClose(updatedRoomDetails.id);
       await fetchRoomAction();
       setSuccessMessage('Room updated successfully');
     } catch (error) {
@@ -99,7 +117,7 @@ const Room = ({
 
       {successMessage && <div className="success-message">{successMessage}</div>}
 
-      {room
+      {rooms
         .sort((a, b) => a.name.localeCompare(b.name))
         .map((singleRoom) => (
           <div key={singleRoom.id}>
@@ -129,6 +147,15 @@ const Room = ({
               <button type="button" onClick={() => handleDelete(singleRoom.id)}>
                 Delete Room
               </button>
+              {isUpdateFormOpen[singleRoom.id] ? (
+                <button type="button" onClick={() => handleFormClose(singleRoom.id)}>
+                  Cancel
+                </button>
+              ) : (
+                <button type="button" onClick={() => handleFormOpen(singleRoom.id)}>
+                  Update Room
+                </button>
+              )}
             </>
             )}
 
@@ -176,7 +203,7 @@ const Room = ({
 };
 
 Room.propTypes = {
-  room: PropTypes.arrayOf(PropTypes.shape({
+  rooms: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     category_id: PropTypes.number.isRequired,
@@ -189,8 +216,8 @@ Room.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  room: state.room.room,
-  user: state.room.user,
+  rooms: state.rooms,
+  user: state.user,
 });
 
 export default connect(mapStateToProps, {

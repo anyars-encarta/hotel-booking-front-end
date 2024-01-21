@@ -79,3 +79,24 @@ export const saveFormData = (formData) => async (dispatch) => {
     throw new Error('Error saving form data', error);
   }
 };
+
+export const saveCategoriesData = (categoryData) => async (dispatch) => {
+  try {
+    const response = await fetch('http://localhost:4000/api/categories', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ category: categoryData }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to save form data:', response.statusText);
+    }
+
+    const catData = await response.json();
+    dispatch(setCategory(catData));
+  } catch (error) {
+    throw new Error('Error saving form data', error);
+  }
+};

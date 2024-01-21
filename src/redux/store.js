@@ -1,10 +1,12 @@
 // store.js
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import roomReducer from './reducers';
+import { roomReducer, categoryReducer, userReducer } from './reducers';
 
 const rootReducer = combineReducers({
-  room: roomReducer,
+  rooms: roomReducer,
+  categories: categoryReducer,
+  user: userReducer,
   // Add more reducers here
 });
 

@@ -18,7 +18,7 @@ const NewRoom = ({ categories }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   // Access the existing rooms data from the Redux state
-  const rooms = useSelector((state) => state.room.room);
+  const rooms = useSelector((state) => state.rooms);
 
   const handleSaveRoom = async () => {
     if (!newRoomDetails.name || !newRoomDetails.category_id) {
@@ -57,7 +57,7 @@ const NewRoom = ({ categories }) => {
 
       navigate('/');
     } catch (error) {
-      navigate.push('/');
+      navigate('/');
     }
   };
 
@@ -74,7 +74,7 @@ const NewRoom = ({ categories }) => {
       {/* Add error message display */}
       {errorMessage && <div className="error-message">{errorMessage}</div>}
 
-      {/* Render form inputs for each field (name, room_type, description, etc.) */}
+      {/* Render form inputs for each field (name, category_id) */}
       <input
         type="text"
         placeholder="Name"
