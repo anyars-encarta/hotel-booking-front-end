@@ -2,16 +2,34 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchRoom, fetchUserData } from '../redux/actions';
+import { fetchRoom, fetchUserData, setRoom } from '../redux/actions';
 
 const Room = ({
   room, fetchRoomAction, user, fetchUserDataAction,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [updatedRoomDetails, setUpdatedRoomDetails] = useState({
+    name: '',
+    category_id: '',
+  });
+
+  const [isUpdateFormOpen, setIsUpdateFormOpen] = useState({});
+  const [categories, setCategories] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch categories
+        const categoriesResponse = await fetch('http://localhost:4000/api/categories');
+
+        if (!categoriesResponse.ok) {
+          throw new Error(`Failed to fetch categories: ${categoriesResponse.statusText}`);
+        }
+
+        const categoriesData = await categoriesResponse.json();
+        setCategories(categoriesData);
+
         await Promise.all([fetchUserDataAction(), fetchRoomAction()]);
 
         setIsLoading(false);
@@ -24,6 +42,10 @@ const Room = ({
     fetchData();
   }, [fetchRoomAction, fetchUserDataAction]);
 
+  const getCategoryById = (categoryId) => categories.find(
+    (category) => category.id === categoryId,
+  );
+
   const handleDelete = async (roomId) => {
     try {
       const response = await fetch(`http://localhost:4000/api/rooms/${roomId}`, {
@@ -35,25 +57,33 @@ const Room = ({
       }
 
       await fetchRoomAction();
+      setSuccessMessage('Room deleted successfully');
     } catch (error) {
       throw new Error('Error deleting room:', error);
     }
   };
 
-  const handleUpdate = async (roomId) => {
+  const handleFormSubmit = async (roomId) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/rooms/${roomId}`, {
-        method: 'UPDATE',
+      const response = await fetch(`http://localhost:4000/api/rooms/${updatedRoomDetails.id}`, {
+        method: 'PATCH', // or 'PUT'
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(updatedRoomDetails),
       });
 
       if (!response.ok) {
         throw new Error(`Failed to update room: ${response.statusText}`);
       }
 
+      // Close the form and fetch updated room list
+      setIsUpdateFormOpen((prevState) => ({
+        ...prevState,
+        [roomId]: false,
+      }));
       await fetchRoomAction();
+      setSuccessMessage('Room updated successfully');
     } catch (error) {
       throw new Error('Error updating room:', error);
     }
@@ -64,35 +94,83 @@ const Room = ({
   }
 
   return (
-    <div className="greeting-content">
+    <div className="room-content">
       <h1>Available Rooms</h1>
-      {room.map((singleRoom) => (
-        <div key={singleRoom.id}>
-          <p>
-            Name:
-            {singleRoom.name}
-          </p>
-          <p>
-            Room Type:
-            {singleRoom.room_type}
-          </p>
-          <p>
-            Room Details:
-            {singleRoom.description}
-          </p>
-          {user.isAdmin && (
+
+      {successMessage && <div className="success-message">{successMessage}</div>}
+
+      {room
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((singleRoom) => (
+          <div key={singleRoom.id}>
+            <p>
+              Name:
+              {' '}
+              {singleRoom.name}
+            </p>
+            <p>
+              Room Type:
+              {' '}
+              {getCategoryById(singleRoom.category_id)?.name || ''}
+            </p>
+            <p>
+              Room Details:
+              {' '}
+              {getCategoryById(singleRoom.category_id)?.description || ''}
+            </p>
+            <p>
+              Price:
+              {' '}
+              {/* {getCategoryById(singleRoom.category_id)?.price || ''} */}
+              {getCategoryById(singleRoom.category_id)?.price ? `$${getCategoryById(singleRoom.category_id)?.price.toFixed(2)}` : ''}
+            </p>
+            {user.isAdmin && (
             <>
               <button type="button" onClick={() => handleDelete(singleRoom.id)}>
                 Delete Room
               </button>
-
-              <button type="button" onClick={() => handleUpdate(singleRoom.id)}>
-                Update Room
-              </button>
             </>
-          )}
-        </div>
-      ))}
+            )}
+
+            {/* Update Form */}
+            {isUpdateFormOpen[singleRoom.id] && (
+            <div className="update-form">
+              {/* Render form inputs for each field (name, room_type, description, etc.) */}
+              <input
+                type="text"
+                placeholder="Name"
+                value={updatedRoomDetails.name}
+                onChange={(e) => setUpdatedRoomDetails({
+                  ...updatedRoomDetails, name: e.target.value,
+                })}
+              />
+
+              {/* Add a dropdown to select a category */}
+              <select
+                value={updatedRoomDetails.category_id}
+                onChange={(e) => setUpdatedRoomDetails({
+                  ...updatedRoomDetails, category_id: e.target.value,
+                })}
+              >
+
+                <option value="">Select a Category</option>
+                {/* Map over categories if available */}
+                {categories
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+              </select>
+
+              <button type="button" onClick={() => handleFormSubmit(singleRoom.id)}>
+                Save Changes
+              </button>
+            </div>
+            )}
+          </div>
+        ))}
     </div>
   );
 };
@@ -101,8 +179,7 @@ Room.propTypes = {
   room: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    room_type: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    category_id: PropTypes.number.isRequired,
   })).isRequired,
   fetchRoomAction: PropTypes.func.isRequired,
   user: PropTypes.shape({
@@ -112,11 +189,12 @@ Room.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  room: state.room,
-  user: state.user,
+  room: state.room.room,
+  user: state.room.user,
 });
 
 export default connect(mapStateToProps, {
   fetchRoomAction: fetchRoom,
   fetchUserDataAction: fetchUserData,
+  setRoomAction: setRoom,
 })(Room);
