@@ -47,22 +47,6 @@ const Room = ({
     (category) => category.id === categoryId,
   );
 
-  const handleCategoryChange = async (categoryId) => {
-    try {
-      const response = await fetch(`http://localhost:4000/api/categories/${categoryId}/rooms`);
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch rooms: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      setRoomAction(data);
-      setSelectedCategory(categoryId);
-    } catch (error) {
-      throw new Error('Error fetching rooms:', error);
-    }
-  };
-
   const handleDelete = async (roomId) => {
     try {
       const response = await fetch(`http://localhost:4000/api/rooms/${roomId}`, {
@@ -113,6 +97,22 @@ const Room = ({
       setSuccessMessage('Room updated successfully');
     } catch (error) {
       throw new Error('Error updating room:', error);
+    }
+  };
+
+  const handleCategoryChange = async (categoryId) => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/categories/${categoryId}/rooms`);
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch rooms: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setRoomAction(data);
+      setSelectedCategory(categoryId);
+    } catch (error) {
+      throw new Error('Error fetching rooms:', error);
     }
   };
 
