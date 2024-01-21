@@ -1,7 +1,7 @@
 // NewRoom.js
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { saveFormData } from '../redux/actions';
 
 const NewRoom = ({ categories }) => {
@@ -14,9 +14,31 @@ const NewRoom = ({ categories }) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
+  // Access the existing rooms data from the Redux state
+  const rooms = useSelector((state) => state.room.room);
+
   const handleSaveRoom = async () => {
     if (!newRoomDetails.name || !newRoomDetails.category_id) {
       setErrorMessage('Please fill in all fields');
+      return;
+    }
+
+    // Check if the room and category combination already exists
+    const roomExists = rooms.some(
+      (room) => (
+        room.name.toLowerCase() === newRoomDetails.name.toLowerCase()
+        && room.category_id.toString() === newRoomDetails.category_id.toString()
+      ),
+    );
+
+    if (roomExists) {
+      const selectedCategory = categories.find(
+        (category) => category.id === parseInt(newRoomDetails.category_id, 10),
+      );
+
+      const categoryName = selectedCategory ? selectedCategory.name : '';
+
+      setErrorMessage(`There is already a room named "${newRoomDetails.name}" in the "${categoryName}" category.`);
       return;
     }
 
@@ -30,7 +52,7 @@ const NewRoom = ({ categories }) => {
       setSuccessMessage('New Room created successfully');
       setErrorMessage('');
     } catch (error) {
-      throw new Error('Error saving room:', error);
+      setErrorMessage('Error saving room. Please try again.');
     }
   };
 
