@@ -171,6 +171,12 @@ const Room = ({
               {' '}
               {getCategoryById(singleRoom.category_id)?.description || ''}
             </p>
+            <p>
+              Price:
+              {' '}
+              {/* {getCategoryById(singleRoom.category_id)?.price || ''} */}
+              {getCategoryById(singleRoom.category_id)?.price ? `$${getCategoryById(singleRoom.category_id)?.price.toFixed(2)}` : ''}
+            </p>
             {user.isAdmin && (
             <>
               <button type="button" onClick={() => handleDelete(singleRoom.id)}>
@@ -241,8 +247,8 @@ Room.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  room: state.room,
-  user: state.user,
+  room: state.room.room,
+  user: state.room.user,
 });
 
 export default connect(mapStateToProps, {

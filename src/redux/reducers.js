@@ -6,7 +6,7 @@ const initialState = {
   },
 };
 
-const rootReducer = (state = initialState, action) => {
+const roomReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_ROOM':
       return {
@@ -29,4 +29,4 @@ const rootReducer = (state = initialState, action) => {
   }
 };
 
-export default rootReducer;
+export default roomReducer;
