@@ -2,10 +2,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { saveFormData } from '../redux/actions';
 
 const NewRoom = ({ categories }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [newRoomDetails, setNewRoomDetails] = useState({
     name: '',
     category_id: '',
@@ -51,8 +54,10 @@ const NewRoom = ({ categories }) => {
 
       setSuccessMessage('New Room created successfully');
       setErrorMessage('');
+
+      navigate('/');
     } catch (error) {
-      setErrorMessage('Error saving room. Please try again.');
+      navigate.push('/');
     }
   };
 
