@@ -1,16 +1,18 @@
-// App.js
-<<<<<<< HEAD
-
-import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Sidebar from './components/Sidebar';
 import { setToken } from './redux/userAuth/authSlice';
+import Room from './components/Room';
+import NewRoom from './components/NewRoom';
+import { fetchCategories, saveFormData } from './redux/actions';
+import Category from './components/Category';
 
-function App() {
+const App = () => {
+  const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,28 +23,6 @@ function App() {
       dispatch(setToken({ username, token }));
     }
   }, [dispatch]);
-
-  return (
-    <div style={{ display: 'flex', width: '100%' }}>
-      <Sidebar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
-      </Routes>
-    </div>
-  );
-}
-=======
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import Room from './components/Room';
-import Navbar from './components/Navbar';
-import NewRoom from './components/NewRoom';
-import { fetchCategories, saveFormData } from './redux/actions';
-import Category from './components/Category';
-
-const App = () => {
-  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,18 +46,19 @@ const App = () => {
   };
 
   return (
-    <>
+    <div style={{ display: 'flex', width: '100%' }}>
+      <Sidebar />
       <Router>
-        <Navbar />
         <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
           <Route path="/" element={<Room categories={categories} />} />
           <Route path="/newroom" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
           <Route path="/category" element={<Category />} />
         </Routes>
       </Router>
-    </>
+    </div>
   );
 };
->>>>>>> dev
 
 export default App;

@@ -198,4 +198,3 @@ export default connect(mapStateToProps, {
   fetchUserDataAction: fetchUserData,
   setRoomAction: setRoom,
 })(Room);
-

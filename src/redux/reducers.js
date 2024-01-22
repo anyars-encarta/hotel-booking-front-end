@@ -30,4 +30,3 @@ const roomReducer = (state = initialState, action) => {
 };
 
 export default roomReducer;
-
