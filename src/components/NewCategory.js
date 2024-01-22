@@ -1,6 +1,5 @@
-// NewRoom.js
+// NewCategory.js
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { saveCategoriesData } from '../redux/actions';
@@ -13,7 +12,7 @@ const NewCategory = () => {
     name: '',
     description: '',
     image: '',
-    number_of_rooms: '',
+    price: '',
   });
 
   const [successMessage, setSuccessMessage] = useState('');
@@ -23,25 +22,24 @@ const NewCategory = () => {
   const categories = useSelector((state) => state.categories);
 
   const handleSaveCategory = async () => {
-    const catName = newCategoryDetails.name;
-    const catDesc = newCategoryDetails.description;
-    const catImage = newCategoryDetails.image;
-    const catNumRooms = newCategoryDetails.number_of_rooms;
+    const {
+      name, description, image, price,
+    } = newCategoryDetails;
 
-    if (!catName || !catDesc || !catImage || !catNumRooms) {
-      setErrorMessage('Please fill in all fields');
-      return;
-    }
+    // if (!name || !description || !image || !number_of_rooms || !price) {
+    //   setErrorMessage('Please fill in all fields');
+    //   return;
+    // }
 
     // Check if the category already exists
     const categoryExists = categories.some(
       (category) => (
-        category.name.toLowerCase() === newCategoryDetails.name.toLowerCase()
+        category.name.toLowerCase() === name.toLowerCase()
       ),
     );
 
     if (categoryExists) {
-      setErrorMessage(`There is already a Category named "${newCategoryDetails.name}".`);
+      setErrorMessage(`There is already a Category named "${name}".`);
       return;
     }
 
@@ -51,15 +49,20 @@ const NewCategory = () => {
         name: '',
         description: '',
         image: '',
-        number_of_rooms: '',
+        price: '',
       });
+
+      console.log('name:', name);
+      console.log('description:', description);
+      console.log('image:', image);
+      console.log('price:', price);
 
       setSuccessMessage('New Category created successfully');
       setErrorMessage('');
 
       navigate('/');
     } catch (error) {
-      navigate('/');
+      setErrorMessage('An Error occured. Please try again.');
     }
   };
 
@@ -68,7 +71,6 @@ const NewCategory = () => {
       <h1>Add a New Category</h1>
 
       {successMessage && <div className="success-message">{successMessage}</div>}
-      {/* Add error message display */}
       {errorMessage && <div className="error-message">{errorMessage}</div>}
 
       {/* Render form inputs for each field (name, description, image, number_of_rooms) */}
@@ -76,9 +78,41 @@ const NewCategory = () => {
         type="text"
         placeholder="Name"
         value={newCategoryDetails.name}
-        onChange={(e) => setNewCategoryDetails({
-          ...newCategoryDetails, name: e.target.value,
-        })}
+        onChange={(e) => setNewCategoryDetails({ ...newCategoryDetails, name: e.target.value })}
+      />
+
+      <textarea
+        placeholder="Description"
+        value={newCategoryDetails.description}
+        onChange={(e) => setNewCategoryDetails(
+          { ...newCategoryDetails, description: e.target.value },
+        )}
+      />
+
+      <input
+        type="number"
+        placeholder="Price"
+        value={newCategoryDetails.price}
+        onChange={(e) => setNewCategoryDetails({ ...newCategoryDetails, price: e.target.value })}
+      />
+
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => {
+          const file = e.target.files[0];
+          const reader = new FileReader();
+
+          reader.onload = (event) => {
+            const imageDataUrl = event.target.result;
+            setNewCategoryDetails({
+              ...newCategoryDetails,
+              image: imageDataUrl,
+            });
+          };
+
+          reader.readAsDataURL(file);
+        }}
       />
 
       <button type="button" onClick={handleSaveCategory}>
@@ -87,13 +121,5 @@ const NewCategory = () => {
     </div>
   );
 };
-
-// NewCategory.propTypes = {
-//   categories: PropTypes.arrayOf(PropTypes.shape({
-//     id: PropTypes.number.isRequired,
-//     name: PropTypes.string.isRequired,
-//   })).isRequired,
-//   // handleFormSubmit: PropTypes.func.isRequired,
-// };
 
 export default NewCategory;
