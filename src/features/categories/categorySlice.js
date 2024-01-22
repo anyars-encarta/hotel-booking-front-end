@@ -28,24 +28,24 @@ const listCategories = createAsyncThunk('categories/listCategories', async () =>
   }
 });
 
-// const categorySlice = createSlice({
-//   name: 'categories',
-//   initialState,
-//   extraReducers: (builder) => {
-//     builder
-//       .addCase(listCategories.pending, (state) => {
-//         state.loading = true;
-//       })
-//       .addCase(listCategories.fulfilled, (state, action) => {
-//         state.categories = action.payload;
-//         state.loading = false;
-//       })
-//       .addCase(listCategories.rejected, (state, action) => {
-//         state.error = action.payload;
-//         state.loading = false;
-//       });
-//   },
-// });
+const categorySlice = createSlice({
+  name: 'categories',
+  initialState,
+  extraReducers: (builder) => {
+    builder
+      .addCase(listCategories.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(listCategories.fulfilled, (state, action) => {
+        state.categories = action.payload;
+        state.loading = false;
+      })
+      .addCase(listCategories.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      });
+  },
+});
 
 export { listCategories };
 export default categorySlice.reducer;
