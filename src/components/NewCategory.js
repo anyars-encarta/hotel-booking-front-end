@@ -4,6 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { saveCategoriesData } from '../redux/rooms/actions';
 
+// Create a custom hook for category existence check
+const useCategoryExists = (categoryName) => {
+  const categories = useSelector((state) => state.categories);
+  return categories.some(
+    (category) => category.name.toLowerCase() === categoryName.toLowerCase(),
+  );
+};
+
 const NewCategory = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,7 +29,7 @@ const NewCategory = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   // Access the existing categories data from the Redux state
-  const categories = useSelector((state) => state.categories);
+  const categoryExists = useCategoryExists(newCategoryDetails.name);
 
   const handleSaveCategory = async () => {
     const {
@@ -33,20 +41,14 @@ const NewCategory = () => {
       return;
     }
 
-    // Check if the category already exists
-    const categoryExists = categories.some(
-      (category) => (
-        category.name.toLowerCase() === name.toLowerCase()
-      ),
-    );
-
-    if (categoryExists) {
-      setErrorMessage(`There is already a Category named "${name}".`);
-      return;
-    }
-
     try {
-      dispatch(saveCategoriesData(newCategoryDetails));
+      await dispatch(saveCategoriesData(newCategoryDetails));
+
+      if (categoryExists) {
+        setErrorMessage(`There is already a Category named "${name}".`);
+        return;
+      }
+
       setNewCategoryDetails({
         name: '',
         description: '',
@@ -61,8 +63,7 @@ const NewCategory = () => {
 
       navigate('/');
     } catch (error) {
-      // console.error('Error saving category:', error);
-      setErrorMessage('Error saving category. Please try again.');
+      setErrorMessage('Error saving category or a duplicate has been detected. Please try again.');
     }
   };
 

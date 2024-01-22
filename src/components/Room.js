@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { fetchRoom, fetchUserData, setRoom } from '../redux/rooms/actions';
 
 const Room = ({
-  rooms, fetchRoomAction, user, fetchUserDataAction,
+  rooms, fetchRoomAction, user, fetchUserDataAction, setRoomAction,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [updatedRoomDetails, setUpdatedRoomDetails] = useState({
@@ -17,6 +17,7 @@ const Room = ({
   const [isUpdateFormOpen, setIsUpdateFormOpen] = useState({});
   const [categories, setCategories] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -107,6 +108,32 @@ const Room = ({
     }
   };
 
+  const handleCategoryChange = async (categoryId) => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/categories/${categoryId}/rooms`);
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch rooms: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setRoomAction(data);
+      setSelectedCategory(categoryId);
+    } catch (error) {
+      throw new Error('Error fetching rooms:', error);
+    }
+  };
+
+  const handleRefresh = async () => {
+    try {
+      // Reset selected category and fetch all rooms
+      setSelectedCategory('');
+      await fetchRoomAction();
+    } catch (error) {
+      throw new Error('Error refreshing rooms:', error);
+    }
+  };
+
   if (isLoading) {
     return <div className="loading">Loading...</div>;
   }
@@ -114,6 +141,22 @@ const Room = ({
   return (
     <div className="room-content">
       <h1>Available Rooms</h1>
+
+      {/* Add a dropdown to select a category */}
+      <select onChange={(e) => handleCategoryChange(e.target.value)} value={selectedCategory}>
+        <option value="">List by a Category</option>
+        {/* Map over categories if available */}
+        {categories
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+      </select>
+      <button type="button" onClick={handleRefresh}>
+        Refresh
+      </button>
 
       {successMessage && <div className="success-message">{successMessage}</div>}
 
@@ -213,6 +256,7 @@ Room.propTypes = {
     isAdmin: PropTypes.bool.isRequired,
   }).isRequired,
   fetchUserDataAction: PropTypes.func.isRequired,
+  setRoomAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
