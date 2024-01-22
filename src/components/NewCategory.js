@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { saveCategoriesData } from '../redux/actions';
+import { saveCategoriesData } from '../redux/rooms/actions';
 
 const NewCategory = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,9 @@ const NewCategory = () => {
     name: '',
     description: '',
     image: '',
-    price: '',
+    price: 0,
+    number_of_rooms: 0,
+    number_reserved: 0,
   });
 
   const [successMessage, setSuccessMessage] = useState('');
@@ -26,10 +28,10 @@ const NewCategory = () => {
       name, description, image, price,
     } = newCategoryDetails;
 
-    // if (!name || !description || !image || !number_of_rooms || !price) {
-    //   setErrorMessage('Please fill in all fields');
-    //   return;
-    // }
+    if (!name || !description || !image || !price) {
+      setErrorMessage('Please fill in all fields');
+      return;
+    }
 
     // Check if the category already exists
     const categoryExists = categories.some(
@@ -49,20 +51,18 @@ const NewCategory = () => {
         name: '',
         description: '',
         image: '',
-        price: '',
+        price: 0,
+        number_of_rooms: 0,
+        number_reserved: 0,
       });
-
-      console.log('name:', name);
-      console.log('description:', description);
-      console.log('image:', image);
-      console.log('price:', price);
 
       setSuccessMessage('New Category created successfully');
       setErrorMessage('');
 
       navigate('/');
     } catch (error) {
-      setErrorMessage('An Error occured. Please try again.');
+      // console.error('Error saving category:', error);
+      setErrorMessage('Error saving category. Please try again.');
     }
   };
 
@@ -73,28 +73,38 @@ const NewCategory = () => {
       {successMessage && <div className="success-message">{successMessage}</div>}
       {errorMessage && <div className="error-message">{errorMessage}</div>}
 
-      {/* Render form inputs for each field (name, description, image, number_of_rooms) */}
-      <input
-        type="text"
-        placeholder="Name"
-        value={newCategoryDetails.name}
-        onChange={(e) => setNewCategoryDetails({ ...newCategoryDetails, name: e.target.value })}
-      />
+      <label htmlFor="categoryName">
+        Name:
+        <input
+          id="categoryName"
+          type="text"
+          value={newCategoryDetails.name}
+          onChange={(e) => setNewCategoryDetails({ ...newCategoryDetails, name: e.target.value })}
+        />
+      </label>
 
-      <textarea
-        placeholder="Description"
-        value={newCategoryDetails.description}
-        onChange={(e) => setNewCategoryDetails(
-          { ...newCategoryDetails, description: e.target.value },
-        )}
-      />
+      <label htmlFor="categoryDescription">
+        Description:
+        <textarea
+          id="categoryDescription"
+          value={newCategoryDetails.description}
+          onChange={(e) => setNewCategoryDetails({
+            ...newCategoryDetails, description: e.target.value,
+          })}
+        />
+      </label>
 
-      <input
-        type="number"
-        placeholder="Price"
-        value={newCategoryDetails.price}
-        onChange={(e) => setNewCategoryDetails({ ...newCategoryDetails, price: e.target.value })}
-      />
+      <label htmlFor="categoryPrice">
+        Price:
+        <input
+          id="categoryPrice"
+          type="number"
+          value={newCategoryDetails.price}
+          onChange={(e) => setNewCategoryDetails({
+            ...newCategoryDetails, price: e.target.value,
+          })}
+        />
+      </label>
 
       <input
         type="file"

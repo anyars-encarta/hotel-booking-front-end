@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchRoom, fetchUserData, setRoom } from '../redux/actions';
+import { fetchRoom, fetchUserData, setRoom } from '../redux/rooms/actions';
 
 const Room = ({
   rooms, fetchRoomAction, user, fetchUserDataAction,
