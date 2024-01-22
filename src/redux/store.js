@@ -2,10 +2,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import roomReducer from './reducers';
+import categoryReducer from '../features/categories/categorySlice';
 
 const rootReducer = combineReducers({
   room: roomReducer,
-  // Add more reducers here
+  category: categoryReducer,
 });
 
 const store = configureStore({
