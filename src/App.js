@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
@@ -48,15 +48,13 @@ const App = () => {
   return (
     <div style={{ display: 'flex', width: '100%' }}>
       <Sidebar />
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/" element={<Room categories={categories} />} />
-          <Route path="/newroom" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
-          <Route path="/category" element={<Category />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/" element={<Room categories={categories} />} />
+        <Route path="/newroom" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
+        <Route path="/category" element={<Category />} />
+      </Routes>
     </div>
   );
 };
