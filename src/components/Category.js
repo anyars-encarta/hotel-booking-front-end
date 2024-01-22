@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { listCategories } from '../features/categories/categorySlice';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import '../stylesheets/mainpage.css';
+import '../styles/mainpage.css';
 
 function Category() {
   const dispatch = useDispatch();
