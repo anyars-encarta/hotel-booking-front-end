@@ -20,7 +20,7 @@ export const roomReducer = (state = initialState.rooms, action) => {
 export const categoryReducer = (state = initialState.categories, action) => {
   switch (action.type) {
     case 'SET_CATEGORY':
-      return action.payload;
+      return [...state, action.payload];
 
     default:
       return state;

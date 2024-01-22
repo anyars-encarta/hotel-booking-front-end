@@ -7,6 +7,8 @@ import { saveCategoriesData } from '../redux/rooms/actions';
 // Create a custom hook for category existence check
 const useCategoryExists = (categoryName) => {
   const categories = useSelector((state) => state.categories);
+  console.log('Categories in useCategoryExists:', categories);
+
   return categories.some(
     (category) => category.name.toLowerCase() === categoryName.toLowerCase(),
   );
@@ -42,7 +44,7 @@ const NewCategory = () => {
     }
 
     try {
-      await dispatch(saveCategoriesData(newCategoryDetails));
+      dispatch(saveCategoriesData(newCategoryDetails));
 
       if (categoryExists) {
         setErrorMessage(`There is already a Category named "${name}".`);
@@ -63,7 +65,7 @@ const NewCategory = () => {
 
       navigate('/');
     } catch (error) {
-      setErrorMessage('Error saving category or a duplicate has been detected. Please try again.');
+      setErrorMessage('Error saving category. Please try again.');
     }
   };
 
