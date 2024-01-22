@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { listCategories } from '../features/categories/categorySlice';
+import { listCategories } from '../redux/categories/categorySlice';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/mainpage.css';
