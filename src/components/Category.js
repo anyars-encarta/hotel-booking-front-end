@@ -7,7 +7,7 @@ import { listCategories } from '../redux/categories/categorySlice';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/mainpage.css';
 
-function Category() {
+const Category = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
   const [startIndex, setStartIndex] = useState(0);
@@ -62,6 +62,6 @@ function Category() {
       </div>
     </div>
   );
-}
+};
 
 export default Category;
