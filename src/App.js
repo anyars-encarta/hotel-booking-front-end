@@ -5,11 +5,13 @@ import { Route, Routes } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
-import Sidebar from './components/Sidebar';
+// import Sidebar from './components/Sidebar';
 import { setToken } from './redux/userAuth/authSlice';
 import NewRoom from './components/NewRoom';
 import { fetchCategories, saveFormData } from './redux/actions';
 import Category from './components/Category';
+import Reservations from './pages/Reservations';
+import Navbar from './components/Navbar';
 import CategoryDetail from './components/CategoryDetail';
 
 const App = () => {
@@ -47,8 +49,8 @@ const App = () => {
   };
 
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
-      <Sidebar />
+    <div className="grid grid-cols-[0.25fr,1fr] bg-[#f9fafb]">
+      <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
@@ -56,6 +58,7 @@ const App = () => {
         <Route path="/newroom" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
         <Route path="/show-rooms" element={<Category />} />
         <Route path="/category_details/:id" element={<CategoryDetail />} />
+        <Route path="/reservations" element={<Reservations />} />
       </Routes>
     </div>
   );
