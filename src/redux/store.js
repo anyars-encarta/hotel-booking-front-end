@@ -1,17 +1,23 @@
-// store.js
+/* eslint-disable no-unused-vars */
 import { configureStore } from '@reduxjs/toolkit';
+// import { logger } from 'redux-logger';
+
 import { combineReducers } from 'redux';
 import { roomReducer, categoryReducer, userReducer } from './rooms/reducers';
+import authReducer from './userAuth/authSlice';
+import categoryReducer from './categories/categorySlice';
 
 const rootReducer = combineReducers({
   rooms: roomReducer,
   categories: categoryReducer,
   user: userReducer,
-  // Add more reducers here
 });
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    auth: authReducer,
+  },
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export default store;

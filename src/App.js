@@ -1,14 +1,30 @@
-// App.js
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+import Sidebar from './components/Sidebar';
+import { setToken } from './redux/userAuth/authSlice';
 import Room from './components/Room';
-import Navbar from './components/Navbar';
 import NewRoom from './components/NewRoom';
 import NewCategory from './components/NewCategory';
 import { fetchCategories, saveFormData } from './redux/rooms/actions';
+import { fetchCategories, saveFormData } from './redux/actions';
+import Category from './components/Category';
 
 const App = () => {
   const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    const username = Cookies.get('username');
+
+    if (token) {
+      dispatch(setToken({ username, token }));
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,17 +48,17 @@ const App = () => {
   };
 
   return (
-    <>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Room categories={categories} />} />
-          {/* Render NewRoom component with the Route component */}
-          <Route path="/new-room" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
-          <Route path="/new-category" element={<NewCategory />} />
-        </Routes>
-      </Router>
-    </>
+    <div style={{ display: 'flex', width: '100%' }}>
+      <Sidebar />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/" element={<Room categories={categories} />} />
+        <Route path="/new-room" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
+        <Route path="/category" element={<Category />} />
+        <Route path="/new-category" element={<NewCategory />} />
+      </Routes>
+    </div>
   );
 };
 
