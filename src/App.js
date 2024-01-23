@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import NewRoom from './components/NewRoom';
 import { fetchCategories, saveFormData } from './redux/actions';
 import Category from './components/Category';
+import CategoryDetail from './components/CategoryDetail';
 
 const App = () => {
   const [categories, setCategories] = useState([]);
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/" element={<Room categories={categories} />} />
           <Route path="/newroom" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
           <Route path="/category" element={<Category />} />
+          <Route path="/category_details/:id" element={<CategoryDetail />} />
         </Routes>
       </Router>
     </>
