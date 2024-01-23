@@ -1,17 +1,17 @@
 #root {
-    padding: 5%;
+  padding: 5%;
 }
 
 .room-content {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 1%;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1%;
 }
 
 .loading,
 .success-message,
 .error-message {
-    font-size: 30px;
-    text-align: center;
-    color: blue;
+  font-size: 30px;
+  text-align: center;
+  color: blue;
 }

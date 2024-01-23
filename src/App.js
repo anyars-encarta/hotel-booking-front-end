@@ -10,7 +10,6 @@ import Room from './components/Room';
 import NewRoom from './components/NewRoom';
 import NewCategory from './components/NewCategory';
 import { fetchCategories, saveFormData } from './redux/rooms/actions';
-import { fetchCategories, saveFormData } from './redux/actions';
 import Category from './components/Category';
 
 const App = () => {

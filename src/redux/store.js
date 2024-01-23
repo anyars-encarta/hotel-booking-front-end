@@ -3,20 +3,22 @@ import { configureStore } from '@reduxjs/toolkit';
 // import { logger } from 'redux-logger';
 
 import { combineReducers } from 'redux';
-import { roomReducer, categoryReducer, userReducer } from './rooms/reducers';
+import { roomReducer, roomCategoryReducer, userReducer } from './rooms/reducers';
 import authReducer from './userAuth/authSlice';
 import categoryReducer from './categories/categorySlice';
 
 const rootReducer = combineReducers({
   rooms: roomReducer,
-  categories: categoryReducer,
+  categories: {
+    roomCategoryReducer,
+    categoryReducer,
+  },
   user: userReducer,
+  auth: authReducer,
 });
 
 const store = configureStore({
-  reducer: {
-    auth: authReducer,
-  },
+  reducer: rootReducer,
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 

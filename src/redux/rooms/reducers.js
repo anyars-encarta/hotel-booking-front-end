@@ -17,7 +17,7 @@ export const roomReducer = (state = initialState.rooms, action) => {
   }
 };
 
-export const categoryReducer = (state = initialState.categories, action) => {
+export const roomCategoryReducer = (state = initialState.categories, action) => {
   switch (action.type) {
     case 'SET_CATEGORY':
       return [...state, action.payload];
