@@ -8,13 +8,6 @@ const Room = ({
   rooms, fetchRoomAction, user, fetchUserDataAction,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [updatedRoomDetails, setUpdatedRoomDetails] = useState({
-    id: '',
-    name: '',
-    category_id: '',
-  });
-
-  const [isUpdateFormOpen, setIsUpdateFormOpen] = useState({});
   const [categories, setCategories] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -64,40 +57,6 @@ const Room = ({
     }
   };
 
-  const handleFormClose = (roomId) => {
-    setIsUpdateFormOpen((prevState) => ({
-      ...prevState,
-      [roomId]: false,
-    }));
-    setUpdatedRoomDetails({
-      id: '',
-      name: '',
-      category_id: '',
-    });
-  };
-
-  const handleFormSubmit = async () => {
-    try {
-      const response = await fetch(`http://localhost:4000/api/rooms/${updatedRoomDetails.id}`, {
-        method: 'PATCH', // or 'PUT'
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedRoomDetails),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to update room: ${response.statusText}`);
-      }
-
-      handleFormClose(updatedRoomDetails.id);
-      await fetchRoomAction();
-      setSuccessMessage('Room updated successfully');
-    } catch (error) {
-      throw new Error('Error updating room:', error);
-    }
-  };
-
   if (isLoading) {
     return <div className="loading">Loading...</div>;
   }
@@ -137,44 +96,6 @@ const Room = ({
               <button type="button" onClick={() => handleDelete(singleRoom.id)}>
                 Delete Room
               </button>
-            )}
-
-            {/* Update Form */}
-            {isUpdateFormOpen[singleRoom.id] && (
-            <div className="update-form">
-              {/* Render form inputs for each field (name, room_type, description, etc.) */}
-              <input
-                type="text"
-                placeholder="Name"
-                value={updatedRoomDetails.name}
-                onChange={(e) => setUpdatedRoomDetails({
-                  ...updatedRoomDetails, name: e.target.value,
-                })}
-              />
-
-              {/* Add a dropdown to select a category */}
-              <select
-                value={updatedRoomDetails.category_id}
-                onChange={(e) => setUpdatedRoomDetails({
-                  ...updatedRoomDetails, category_id: e.target.value,
-                })}
-              >
-
-                <option value="">Select a Category</option>
-                {/* Map over categories if available */}
-                {categories
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-              </select>
-
-              <button type="button" onClick={() => handleFormSubmit(singleRoom.id)}>
-                Save Changes
-              </button>
-            </div>
             )}
           </div>
         ))}
