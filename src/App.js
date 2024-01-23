@@ -1,16 +1,16 @@
 import { useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Cookies from 'js-cookie';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Sidebar from './components/Sidebar';
 import { setToken } from './redux/userAuth/authSlice';
-import Room from './components/Room';
 import NewRoom from './components/NewRoom';
-import NewCategory from './components/NewCategory';
-import { fetchCategories, saveFormData } from './redux/rooms/actions';
+import { fetchCategories, saveFormData } from './redux/actions';
 import Category from './components/Category';
+import CategoryDetail from './components/CategoryDetail';
 
 const App = () => {
   const [categories, setCategories] = useState([]);
@@ -52,10 +52,10 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/" element={<Room categories={categories} />} />
-        <Route path="/new-room" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
-        <Route path="/category" element={<Category />} />
-        <Route path="/new-category" element={<NewCategory />} />
+        <Route path="/" element={<Category />} />
+        <Route path="/newroom" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
+        <Route path="/show-rooms" element={<Category />} />
+        <Route path="/category_details/:id" element={<CategoryDetail />} />
       </Routes>
     </div>
   );
