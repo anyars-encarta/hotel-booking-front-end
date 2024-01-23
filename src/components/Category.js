@@ -10,6 +10,7 @@ import '../styles/mainpage.css';
 const Category = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
+  const loading = useSelector((state) => state.category.loading);
   const [startIndex, setStartIndex] = useState(0);
 
   const handlePrevClick = () => {
@@ -27,9 +28,24 @@ const Category = () => {
     dispatch(listCategories());
   }, [dispatch]);
 
+  if (loading) {
+    return (
+      <div className="div-center">
+        <h3 className="text-info text-wrap">loading ...</h3>
+      </div>
+    );
+  }
+  if (categories.length === 0) {
+    return (
+      <div className="div-center">
+        <h3 className="text-center text-info text-wrap">No Categories Available</h3>
+      </div>
+    );
+  }
+
   return (
     <div className="center-container">
-      <h1 className="text-center text-wrap text-uppercase mt-5">Available categories</h1>
+      <h1 className="text-center text-wrap heading text-uppercase my-3">Available categories</h1>
       <p className="text-center text-wrap mb-3">Please Select Your Favorite Room in the Below Category.</p>
       <p className="text-center mb-4 opacity-50">. . . . . . . . . . . . . . . . .</p>
       <div className="setButtons">
@@ -43,7 +59,7 @@ const Category = () => {
               <div className="card h-100">
                 <img src={category.image} className="img-fluid object-fit-cover card-img-top" alt="..." />
                 <div className="card-body">
-                  <h5 className="card-title text-center">{category.name}</h5>
+                  <h5 className="card-title text-center category ">{category.name}</h5>
                   <p className="text-center mb-4 opacity-50">. . . . . . . . . . . . .</p>
                   <div className="paragraph-container">
                     <p className="card-text text-center truncate-paragraph">{ category.description }</p>
