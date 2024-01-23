@@ -1,4 +1,7 @@
 // reducers.js
+import { combineReducers } from 'redux';
+import authReducer from '../userAuth/authSlice';
+
 const initialState = {
   rooms: [],
   user: {
@@ -10,7 +13,7 @@ const initialState = {
 export const roomReducer = (state = initialState.rooms, action) => {
   switch (action.type) {
     case 'SET_ROOM':
-      return action.payload;
+      return [...action.payload];
 
     default:
       return state;
@@ -40,3 +43,9 @@ export const userReducer = (state = initialState.user, action) => {
       return state;
   }
 };
+
+export const rootReducer = combineReducers({
+  auth: authReducer,
+  category: categoryReducer,
+  rooms: roomReducer,
+});
