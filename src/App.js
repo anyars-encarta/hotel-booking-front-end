@@ -11,6 +11,7 @@ import NewRoom from './components/NewRoom';
 import { fetchCategories, saveFormData } from './redux/rooms/actions';
 import Category from './components/Category';
 import CategoryDetail from './components/CategoryDetail';
+import Room from './components/Room';
 
 const App = () => {
   const [categories, setCategories] = useState([]);
@@ -52,7 +53,7 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/" element={<Category />} />
+        <Route path="/" element={<Room />} />
         <Route path="/newroom" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
         <Route path="/show-rooms" element={<Category />} />
         <Route path="/category_details/:id" element={<CategoryDetail />} />
