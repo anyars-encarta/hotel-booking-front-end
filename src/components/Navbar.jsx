@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => (
   <nav className=" h-screen md:static dark:bg-[#18212F] dark:text-white shadow-sm  p-10">

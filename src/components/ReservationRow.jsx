@@ -15,7 +15,7 @@ const ReservationRow = ({ room: { name }, city, user: { username, email } }) => 
       </p>
       <p className=" flex flex-col text-sm">
         <span>
-          night stay
+          { city }
         </span>
       </p>
 

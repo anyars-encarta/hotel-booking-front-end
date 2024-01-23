@@ -6,8 +6,6 @@ import useGetReservations from '../hooks/useGetReservations';
 const ReservationsList = () => {
   const { isPending, error, reservations } = useGetReservations();
 
-  console.log(reservations);
-
   if (isPending) {
     return <p>Loading...</p>;
   }

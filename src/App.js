@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
-import Sidebar from './components/Sidebar';
+// import Sidebar from './components/Sidebar';
 import { setToken } from './redux/userAuth/authSlice';
 import Room from './components/Room';
 import NewRoom from './components/NewRoom';

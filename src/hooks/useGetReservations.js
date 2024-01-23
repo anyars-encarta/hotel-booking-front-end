@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getReservations } from '../services/reservationsApi';
+import getReservations from '../services/reservationsApi';
 
 const useGetReservations = () => {
   const { isPending, error, data: reservations } = useQuery({
