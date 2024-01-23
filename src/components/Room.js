@@ -6,7 +6,7 @@ import { fetchRoom, fetchUserData, setRoom } from '../redux/rooms/actions';
 import '../styles/room.css';
 
 const Room = ({
-  rooms, fetchRoomAction, user, fetchUserDataAction,
+  rooms, fetchRoomAction, fetchUserDataAction,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
@@ -76,7 +76,7 @@ const Room = ({
             <th scope="col">Room Type</th>
             <th scope="col">Room Details</th>
             <th scope="col">Price</th>
-            {user.isAdmin && <th scope="col">Action</th>}
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -92,13 +92,11 @@ const Room = ({
                     ? `$${getCategoryById(singleRoom.category_id)?.price.toFixed(2)}`
                     : ''}
                 </td>
-                {user.isAdmin && (
                 <td>
                   <button className="btn btn-primary" type="button" onClick={() => handleDelete(singleRoom.id)}>
                     Delete Room
                   </button>
                 </td>
-                )}
               </tr>
             ))}
         </tbody>
@@ -114,15 +112,11 @@ Room.propTypes = {
     category_id: PropTypes.number.isRequired,
   })).isRequired,
   fetchRoomAction: PropTypes.func.isRequired,
-  user: PropTypes.shape({
-    isAdmin: PropTypes.bool.isRequired,
-  }).isRequired,
   fetchUserDataAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   rooms: state.rooms,
-  user: state.user,
 });
 
 export default connect(mapStateToProps, {
