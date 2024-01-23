@@ -8,6 +8,7 @@ import SignUp from './components/SignUp';
 import Sidebar from './components/Sidebar';
 import { setToken } from './redux/userAuth/authSlice';
 import NewRoom from './components/NewRoom';
+import NewCategory from './components/NewCategory';
 import { fetchCategories, saveFormData } from './redux/rooms/actions';
 import Category from './components/Category';
 import CategoryDetail from './components/CategoryDetail';
@@ -54,8 +55,9 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/" element={<Room />} />
-        <Route path="/newroom" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
+        <Route path="/add-rooms" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
         <Route path="/show-rooms" element={<Category />} />
+        <Route path="/add-category" element={<NewCategory />} />
         <Route path="/category_details/:id" element={<CategoryDetail />} />
       </Routes>
     </div>

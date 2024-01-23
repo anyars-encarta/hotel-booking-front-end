@@ -6,7 +6,7 @@ import { saveCategoriesData } from '../redux/rooms/actions';
 
 // Create a custom hook for category existence check
 const useCategoryExists = (categoryName) => {
-  const categories = useSelector((state) => state.categories);
+  const categories = useSelector((state) => state.category);
 
   return categories.some(
     (category) => category.name.toLowerCase() === categoryName.toLowerCase(),
