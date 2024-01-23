@@ -122,7 +122,6 @@ NewRoom.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   })).isRequired,
-  // handleFormSubmit: PropTypes.func.isRequired,
 };
 
 export default NewRoom;
