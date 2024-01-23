@@ -8,15 +8,12 @@ import roomReducer from './reducers';
 import categoryReducer from './categories/categorySlice';
 import roomsReducer from './rooms/roomSlice';
 
-const rootReducer = combineReducers({
-  room: roomReducer,
-  category: categoryReducer,
-  rooms: roomsReducer,
-});
-
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    category: categoryReducer,
+    rooms: roomsReducer,
+    room: roomReducer,
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
