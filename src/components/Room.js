@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchRoom, fetchUserData, setRoom } from '../redux/rooms/actions';
+import '../styles/room.css';
 
 const Room = ({
   rooms, fetchRoomAction, user, fetchUserDataAction,
@@ -62,19 +63,20 @@ const Room = ({
   }
 
   return (
-    <div className="room-content">
-      <h1>Available Rooms</h1>
+    <div className="room-content bg-success p-2 text-dark bg-opacity-25 card text-center">
+      <div className="card-header">
+        <h1>Available Rooms</h1>
+        {successMessage && <div className="success-message">{successMessage}</div>}
+      </div>
 
-      {successMessage && <div className="success-message">{successMessage}</div>}
-
-      <table>
+      <table className="table table-striped">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Room Type</th>
-            <th>Room Details</th>
-            <th>Price</th>
-            {user.isAdmin && <th>Action</th>}
+            <th scope="col">Name</th>
+            <th scope="col">Room Type</th>
+            <th scope="col">Room Details</th>
+            <th scope="col">Price</th>
+            {user.isAdmin && <th scope="col">Action</th>}
           </tr>
         </thead>
         <tbody>
@@ -92,7 +94,7 @@ const Room = ({
                 </td>
                 {user.isAdmin && (
                 <td>
-                  <button type="button" onClick={() => handleDelete(singleRoom.id)}>
+                  <button className="btn btn-primary" type="button" onClick={() => handleDelete(singleRoom.id)}>
                     Delete Room
                   </button>
                 </td>

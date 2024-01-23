@@ -69,67 +69,70 @@ const NewCategory = () => {
   };
 
   return (
-    <div className="new-form">
-      <h1>Add a New Category</h1>
+    <div className="card text-center">
+      <div className="new-form card-header">
+        <h1>Add a New Category</h1>
 
-      {successMessage && <div className="success-message">{successMessage}</div>}
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
+        {successMessage && <div className="success-message">{successMessage}</div>}
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
+      </div>
 
-      <label htmlFor="categoryName">
-        Name:
+      <div className="card-body bg-success p-2 text-dark bg-opacity-25">
         <input
-          id="categoryName"
+          className="form-control"
           type="text"
+          placeholder="Category Name"
           value={newCategoryDetails.name}
           onChange={(e) => setNewCategoryDetails({ ...newCategoryDetails, name: e.target.value })}
         />
-      </label>
 
-      <label htmlFor="categoryDescription">
-        Description:
         <textarea
-          id="categoryDescription"
+          className="form-control"
+          placeholder="Category description"
           value={newCategoryDetails.description}
           onChange={(e) => setNewCategoryDetails({
             ...newCategoryDetails, description: e.target.value,
           })}
         />
-      </label>
 
-      <label htmlFor="categoryPrice">
-        Price:
+        <label htmlFor="categoryPrice">
+          <h6>Price:</h6>
+          <input
+            id="categoryPrice"
+            className="form-control"
+            type="number"
+            value={newCategoryDetails.price}
+            onChange={(e) => setNewCategoryDetails({
+              ...newCategoryDetails, price: e.target.value,
+            })}
+          />
+        </label>
+
+        <h6>Upload image</h6>
         <input
-          id="categoryPrice"
-          type="number"
-          value={newCategoryDetails.price}
-          onChange={(e) => setNewCategoryDetails({
-            ...newCategoryDetails, price: e.target.value,
-          })}
+          className="form-control"
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+              const imageDataUrl = event.target.result;
+              setNewCategoryDetails({
+                ...newCategoryDetails,
+                image: imageDataUrl,
+              });
+            };
+
+            reader.readAsDataURL(file);
+          }}
         />
-      </label>
 
-      <input
-        type="file"
-        accept="image/*"
-        onChange={(e) => {
-          const file = e.target.files[0];
-          const reader = new FileReader();
-
-          reader.onload = (event) => {
-            const imageDataUrl = event.target.result;
-            setNewCategoryDetails({
-              ...newCategoryDetails,
-              image: imageDataUrl,
-            });
-          };
-
-          reader.readAsDataURL(file);
-        }}
-      />
-
-      <button type="button" onClick={handleSaveCategory}>
-        Add Category
-      </button>
+        <button className="btn btn-primary" type="button" onClick={handleSaveCategory}>
+          Add Category
+        </button>
+      </div>
     </div>
   );
 };
