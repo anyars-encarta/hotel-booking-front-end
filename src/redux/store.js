@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { configureStore } from '@reduxjs/toolkit';
 // import { logger } from 'redux-logger';
-import { roomReducer, categoryReducer, userReducer } from './rooms/reducers';
+import { roomReducer, categoryReducer } from './rooms/reducers';
 import authReducer from './userAuth/authSlice';
-import categoryReducer from './categories/categorySlice';
 import roomsReducer from './rooms/roomSlice';
 
 const store = configureStore({
