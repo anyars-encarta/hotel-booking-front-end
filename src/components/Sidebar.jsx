@@ -32,10 +32,10 @@ function Sidebar() {
       key={item}
       className="hover:bg-green-500 p-4 rounded-lg"
       role="button"
-      onClick={item === 'sign out' ? handleLogout : null}
+      onClick={item === 'Sign out' ? handleLogout : null}
       tabIndex={0}
     >
-      {item === 'sign out' ? (
+      {item === 'Sign out' ? (
         item // Render 'sign out' directly inside MenuItem
       ) : (
         <NavLink
@@ -87,10 +87,10 @@ function Sidebar() {
               </li>
               {isAuthenticated
                 ? generateListItems(
-                  [...protectedPages, 'sign out'],
+                  [...protectedPages, 'Sign out'],
                   handleLogout,
                 )
-                : generateListItems(['login', 'sign up'])}
+                : generateListItems(['Login', 'Sign up'])}
             </ul>
           </Box>
         </Toolbar>

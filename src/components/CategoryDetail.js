@@ -9,8 +9,8 @@ const CategoryDetail = () => {
   const { id } = useParams();
   const categories = useSelector((state) => state.category.categories);
   const cat = categories.find((category) => category.id === parseInt(id, 10));
-  const room = useSelector((state) => state.rooms.rooms);
-  // const room = rooms.find((r) => r.category_id === parseInt(id, 10));
+  const rooms = useSelector((state) => state.rooms.rooms);
+  const room = rooms.filter((r) => r.category_id === parseInt(id, 10));
   const loading = useSelector((state) => state.category.loading);
 
   const dispatch = useDispatch();
@@ -22,14 +22,14 @@ const CategoryDetail = () => {
 
   if (loading) {
     return (
-      <div className="center-container">
+      <div className="div-center">
         <h3 className="text-center text-info text-wrap">loading ...</h3>
       </div>
     );
   }
-  if (room.length === 0) {
+  if (rooms.length === 0) {
     return (
-      <div className="center-container">
+      <div className="div-center">
         <h3 className="text-center text-info text-wrap">No Rooms</h3>
       </div>
     );

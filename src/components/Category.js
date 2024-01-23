@@ -30,14 +30,14 @@ const Category = () => {
 
   if (loading) {
     return (
-      <div className="center-container">
-        <h3 className="text-center text-info text-wrap">loading ...</h3>
+      <div className="div-center">
+        <h3 className="text-info text-wrap">loading ...</h3>
       </div>
     );
   }
   if (categories.length === 0) {
     return (
-      <div className="center-container">
+      <div className="div-center">
         <h3 className="text-center text-info text-wrap">No Categories Available</h3>
       </div>
     );
