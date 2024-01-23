@@ -6,8 +6,6 @@
   border: 0;
   border-style: dotted;
   height: 1px;
-
-  /* width: 30px; */
   background: #333;
   background-image: linear-gradient(to right, #ccc, #333, #ccc);
 }
@@ -93,4 +91,12 @@
   .arrow-btn-prev {
     display: none;
   }
+}
+
+
+/* details page */
+.div-border {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 1rem;
 }
