@@ -10,6 +10,7 @@ import '../styles/mainpage.css';
 const Category = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
+  const loading = useSelector((state) => state.category.loading);
   const [startIndex, setStartIndex] = useState(0);
 
   const handlePrevClick = () => {
@@ -26,6 +27,14 @@ const Category = () => {
   useEffect(() => {
     dispatch(listCategories());
   }, [dispatch]);
+
+  if (loading) {
+    return (
+      <div className="center-container">
+        <h3 className="text-center text-info text-wrap">loading ...</h3>
+      </div>
+    );
+  }
 
   return (
     <div className="center-container">
