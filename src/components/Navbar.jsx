@@ -14,23 +14,23 @@ const Navbar = () => (
         </NavLink>
       </li>
       <li className="px-3 py-2 hover:bg-blue-500 hover:text-white">
-        <NavLink to="bookings" className=" flex items-center gap-2">
-          <span>Bookings</span>
+        <NavLink to="login" className=" flex items-center gap-2">
+          <span>Login</span>
         </NavLink>
       </li>
       <li className="px-3 py-2 hover:bg-blue-500 hover:text-white">
-        <NavLink to="cabins" className=" flex items-center gap-2">
-          <span>Cabins</span>
+        <NavLink to="show-rooms" className=" flex items-center gap-2">
+          <span>Rooms</span>
         </NavLink>
       </li>
       <li className="px-3 py-2 hover:bg-blue-500 hover:text-white">
-        <NavLink to="users" className=" flex items-center gap-2">
-          <span>Users</span>
+        <NavLink to="newroom" className=" flex items-center gap-2">
+          <span>New room</span>
         </NavLink>
       </li>
       <li className="px-3 py-2 hover:bg-blue-500 hover:text-white">
-        <NavLink to="settings" className=" flex items-center gap-2">
-          <span className=" font-semibold">Settings</span>
+        <NavLink to="reservations" className=" flex items-center gap-2">
+          <span className=" font-semibold">Reservations</span>
         </NavLink>
       </li>
     </ul>
