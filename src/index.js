@@ -12,9 +12,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <div className="container-fluid">
-          <App />
-        </div>
+        <App />
       </Provider>
     </BrowserRouter>
   </React.StrictMode>,

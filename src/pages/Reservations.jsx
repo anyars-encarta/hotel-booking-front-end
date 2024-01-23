@@ -1,7 +1,9 @@
 import ReservationsTable from '../components/ReservationsTable';
 
 const Reservations = () => (
-  <ReservationsTable />
+  <div>
+    <ReservationsTable />
+  </div>
 );
 
 export default Reservations;

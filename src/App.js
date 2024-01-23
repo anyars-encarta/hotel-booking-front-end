@@ -10,6 +10,8 @@ import Room from './components/Room';
 import NewRoom from './components/NewRoom';
 import { fetchCategories, saveFormData } from './redux/actions';
 import Category from './components/Category';
+import Reservations from './pages/Reservations';
+import Navbar from './components/Navbar';
 
 const App = () => {
   const [categories, setCategories] = useState([]);
@@ -46,14 +48,15 @@ const App = () => {
   };
 
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
-      <Sidebar />
+    <div className="grid grid-cols-[0.25fr,1fr] bg-[#f9fafb]">
+      <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/" element={<Room categories={categories} />} />
         <Route path="/newroom" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
         <Route path="/category" element={<Category />} />
+        <Route path="/reservations" element={<Reservations />} />
       </Routes>
     </div>
   );
