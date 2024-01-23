@@ -11,6 +11,7 @@ const CategoryDetail = () => {
   const cat = categories.find((category) => category.id === parseInt(id, 10));
   const rooms = useSelector((state) => state.rooms.rooms);
   const room = rooms.filter((r) => r.category_id === parseInt(id, 10));
+  const loading = useSelector((state) => state.category.loading);
 
   const dispatch = useDispatch();
 
@@ -18,6 +19,14 @@ const CategoryDetail = () => {
     dispatch(getCategory(id));
     dispatch(listRooms());
   }, [dispatch, id]);
+
+  if (loading) {
+    return (
+      <div className="center-container">
+        <h3 className="text-center text-info text-wrap">loading ...</h3>
+      </div>
+    );
+  }
 
   return (
     <>
