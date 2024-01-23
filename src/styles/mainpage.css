@@ -82,13 +82,11 @@
   color: white;
 }
 
-
 @media screen and (max-width: 768px) {
   .arrow-btn-next,
   .arrow-btn-prev {
     display: none;
   }
-
 }
 
 /* details page */
