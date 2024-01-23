@@ -35,10 +35,17 @@ const Category = () => {
       </div>
     );
   }
+  if (categories.length === 0) {
+    return (
+      <div className="center-container">
+        <h3 className="text-center text-info text-wrap">No Categories Available</h3>
+      </div>
+    );
+  }
 
   return (
     <div className="center-container">
-      <h1 className="text-center text-wrap text-uppercase mt-5">Available categories</h1>
+      <h1 className="text-center text-wrap heading text-uppercase my-3">Available categories</h1>
       <p className="text-center text-wrap mb-3">Please Select Your Favorite Room in the Below Category.</p>
       <p className="text-center mb-4 opacity-50">. . . . . . . . . . . . . . . . .</p>
       <div className="setButtons">
@@ -52,7 +59,7 @@ const Category = () => {
               <div className="card h-100">
                 <img src={category.image} className="img-fluid object-fit-cover card-img-top" alt="..." />
                 <div className="card-body">
-                  <h5 className="card-title text-center">{category.name}</h5>
+                  <h5 className="card-title text-center category ">{category.name}</h5>
                   <p className="text-center mb-4 opacity-50">. . . . . . . . . . . . .</p>
                   <div className="paragraph-container">
                     <p className="card-text text-center truncate-paragraph">{ category.description }</p>

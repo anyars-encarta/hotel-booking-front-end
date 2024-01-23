@@ -55,7 +55,7 @@
 .arrow-btn-prev,
 .arrow-btn-next {
   margin-top: 6%;
-  background-color: green;
+  background-color: green !important;
   padding: 0.7rem;
   border: 0;
   width: 100px;
@@ -63,7 +63,7 @@
 }
 
 .arrow-btn-disable {
-  background-color: grey;
+  background-color: grey !important;
 }
 
 .arrow-btn-next {
@@ -82,21 +82,32 @@
   color: white;
 }
 
-.unColor {
-  color: red;
-}
 
 @media screen and (max-width: 768px) {
   .arrow-btn-next,
   .arrow-btn-prev {
     display: none;
   }
-}
 
+}
 
 /* details page */
 .div-border {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 1rem;
+}
+
+.btn-success {
+  background-color: green !important;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.category {
+  font-size: 1rem;
+  font-weight: bold;
 }

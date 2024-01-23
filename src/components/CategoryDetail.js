@@ -9,8 +9,8 @@ const CategoryDetail = () => {
   const { id } = useParams();
   const categories = useSelector((state) => state.category.categories);
   const cat = categories.find((category) => category.id === parseInt(id, 10));
-  const rooms = useSelector((state) => state.rooms.rooms);
-  const room = rooms.filter((r) => r.category_id === parseInt(id, 10));
+  const room = useSelector((state) => state.rooms.rooms);
+  // const room = rooms.find((r) => r.category_id === parseInt(id, 10));
   const loading = useSelector((state) => state.category.loading);
 
   const dispatch = useDispatch();
@@ -27,19 +27,26 @@ const CategoryDetail = () => {
       </div>
     );
   }
+  if (room.length === 0) {
+    return (
+      <div className="center-container">
+        <h3 className="text-center text-info text-wrap">No Rooms</h3>
+      </div>
+    );
+  }
 
   return (
     <>
       <div className="container d-flex-center">
         <div className="row d-flex justify-content-between">
-          <h2 className="text-center mb-3">
+          <h2 className="text-center heading mb-3">
             {cat.name}
             {' '}
             Category
           </h2>
           <p className="text-center mb-4 opacity-50">. . . . . . . . . . . . . . . . . . . .</p>
 
-          <div className="col-md-4 div-border mb-3">
+          <div className="col-md-4 div-border mb-3 ms-3">
             <p className="text-center">
               List of Rooms in
               {' '}

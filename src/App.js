@@ -54,8 +54,8 @@ const App = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/" element={<Room categories={categories} />} />
         <Route path="/newroom" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
-        <Route path="/category" element={<Category />} />
-         <Route path="/category_details/:id" element={<CategoryDetail />} />
+        <Route path="/show-rooms" element={<Category />} />
+        <Route path="/category_details/:id" element={<CategoryDetail />} />
       </Routes>
     </div>
   );
