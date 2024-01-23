@@ -67,38 +67,40 @@ const Room = ({
 
       {successMessage && <div className="success-message">{successMessage}</div>}
 
-      {rooms
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .map((singleRoom) => (
-          <div key={singleRoom.id}>
-            <p>
-              Name:
-              {' '}
-              {singleRoom.name}
-            </p>
-            <p>
-              Room Type:
-              {' '}
-              {getCategoryById(singleRoom.category_id)?.name || ''}
-            </p>
-            <p>
-              Room Details:
-              {' '}
-              {getCategoryById(singleRoom.category_id)?.description || ''}
-            </p>
-            <p>
-              Price:
-              {' '}
-              {/* {getCategoryById(singleRoom.category_id)?.price || ''} */}
-              {getCategoryById(singleRoom.category_id)?.price ? `$${getCategoryById(singleRoom.category_id)?.price.toFixed(2)}` : ''}
-            </p>
-            {user.isAdmin && (
-              <button type="button" onClick={() => handleDelete(singleRoom.id)}>
-                Delete Room
-              </button>
-            )}
-          </div>
-        ))}
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Room Type</th>
+            <th>Room Details</th>
+            <th>Price</th>
+            {user.isAdmin && <th>Action</th>}
+          </tr>
+        </thead>
+        <tbody>
+          {rooms
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((singleRoom) => (
+              <tr key={singleRoom.id}>
+                <td>{singleRoom.name}</td>
+                <td>{getCategoryById(singleRoom.category_id)?.name || ''}</td>
+                <td>{getCategoryById(singleRoom.category_id)?.description || ''}</td>
+                <td>
+                  {getCategoryById(singleRoom.category_id)?.price
+                    ? `$${getCategoryById(singleRoom.category_id)?.price.toFixed(2)}`
+                    : ''}
+                </td>
+                {user.isAdmin && (
+                <td>
+                  <button type="button" onClick={() => handleDelete(singleRoom.id)}>
+                    Delete Room
+                  </button>
+                </td>
+                )}
+              </tr>
+            ))}
+        </tbody>
+      </table>
     </div>
   );
 };
