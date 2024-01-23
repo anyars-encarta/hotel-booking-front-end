@@ -8,7 +8,7 @@ import SignUp from './components/SignUp';
 import Sidebar from './components/Sidebar';
 import { setToken } from './redux/userAuth/authSlice';
 import NewRoom from './components/NewRoom';
-import { fetchCategories, saveFormData } from './redux/actions';
+import { fetchCategories, saveFormData } from './redux/rooms/actions';
 import Category from './components/Category';
 import CategoryDetail from './components/CategoryDetail';
 
