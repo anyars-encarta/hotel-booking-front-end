@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, setToken } from '../redux/userAuth/authSlice';
 
-const protectedPages = ['Add Rooms', 'Show Rooms', 'Room Reservation'];
+const protectedPages = ['Add Category', 'Add Rooms', 'Show Rooms', 'Room Reservation'];
 
 function Sidebar() {
   const dispatch = useDispatch();
@@ -82,7 +82,7 @@ function Sidebar() {
             <ul className="flex flex-col gap-2 md:gap-8">
               <li className="hover:bg-green-500 p-4 rounded-lg">
                 <NavLink className="text-lg" to="/">
-                  Rooms
+                  Delete Rooms
                 </NavLink>
               </li>
               {isAuthenticated

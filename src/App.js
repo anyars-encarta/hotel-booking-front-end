@@ -8,11 +8,13 @@ import SignUp from './components/SignUp';
 // import Sidebar from './components/Sidebar';
 import { setToken } from './redux/userAuth/authSlice';
 import NewRoom from './components/NewRoom';
-import { fetchCategories, saveFormData } from './redux/actions';
+import NewCategory from './components/NewCategory';
+import { fetchCategories, saveFormData } from './redux/rooms/actions';
 import Category from './components/Category';
 import Reservations from './pages/Reservations';
 import Navbar from './components/Navbar';
 import CategoryDetail from './components/CategoryDetail';
+import Room from './components/Room';
 
 const App = () => {
   const [categories, setCategories] = useState([]);
@@ -54,9 +56,10 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/" element={<Category />} />
-        <Route path="/newroom" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
+        <Route path="/" element={<Room />} />
+        <Route path="/add-rooms" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
         <Route path="/show-rooms" element={<Category />} />
+        <Route path="/add-category" element={<NewCategory />} />
         <Route path="/category_details/:id" element={<CategoryDetail />} />
         <Route path="/reservations" element={<Reservations />} />
       </Routes>

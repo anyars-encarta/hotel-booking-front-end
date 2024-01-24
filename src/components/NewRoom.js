@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { saveFormData } from '../redux/actions';
+import { saveFormData } from '../redux/rooms/actions';
+import '../styles/new-room.css';
 
 const NewRoom = ({ categories }) => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const NewRoom = ({ categories }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   // Access the existing rooms data from the Redux state
-  const rooms = useSelector((state) => state.room.room);
+  const rooms = useSelector((state) => state.rooms);
 
   const handleSaveRoom = async () => {
     if (!newRoomDetails.name || !newRoomDetails.category_id) {
@@ -57,7 +58,7 @@ const NewRoom = ({ categories }) => {
 
       navigate('/');
     } catch (error) {
-      navigate.push('/');
+      navigate('/');
     }
   };
 
@@ -67,45 +68,51 @@ const NewRoom = ({ categories }) => {
   }
 
   return (
-    <div className="new-form">
-      <h1>Add a New Room</h1>
+    <div className="card text-center">
+      <div className="new-form card-header">
+        <h1>Add a New Room</h1>
 
-      {successMessage && <div className="success-message">{successMessage}</div>}
-      {/* Add error message display */}
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
+        {successMessage && <div className="success-message">{successMessage}</div>}
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
+      </div>
 
-      {/* Render form inputs for each field (name, room_type, description, etc.) */}
-      <input
-        type="text"
-        placeholder="Name"
-        value={newRoomDetails.name}
-        onChange={(e) => setNewRoomDetails({
-          ...newRoomDetails, name: e.target.value,
-        })}
-      />
+      <div className="card-body bg-success p-2 text-dark bg-opacity-25">
 
-      {/* Add a dropdown to select a category */}
-      <select
-        value={newRoomDetails.category_id}
-        onChange={(e) => setNewRoomDetails({
-          ...newRoomDetails, category_id: e.target.value,
-        })}
-      >
+        {/* Render form inputs for each field (name, category_id) */}
+        <input
+          className="form-control"
+          type="text"
+          placeholder="Name"
+          value={newRoomDetails.name}
+          onChange={(e) => setNewRoomDetails({
+            ...newRoomDetails, name: e.target.value,
+          })}
+        />
 
-        <option value="">Select a Category</option>
-        {/* Map over categories if available */}
-        {categories
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-      </select>
+        {/* Add a dropdown to select a category */}
+        <select
+          className="form-control"
+          value={newRoomDetails.category_id}
+          onChange={(e) => setNewRoomDetails({
+            ...newRoomDetails, category_id: e.target.value,
+          })}
+        >
 
-      <button type="button" onClick={handleSaveRoom}>
-        Add Room
-      </button>
+          <option value="">Select a Category</option>
+          {/* Map over categories if available */}
+          {categories
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+        </select>
+
+        <button className="btn btn-primary" type="button" onClick={handleSaveRoom}>
+          Add Room
+        </button>
+      </div>
     </div>
   );
 };
@@ -115,7 +122,6 @@ NewRoom.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   })).isRequired,
-  // handleFormSubmit: PropTypes.func.isRequired,
 };
 
 export default NewRoom;
