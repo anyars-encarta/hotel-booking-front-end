@@ -13,7 +13,7 @@ import Reservations from './pages/Reservations';
 import CategoryDetail from './components/CategoryDetail';
 import DeleteRoom from './components/DeleteRoom';
 import { listRooms } from './redux/rooms/roomSlice';
-import { getCategory } from './redux/categories/categorySlice';
+import { getCategory, listCategories } from './redux/categories/categorySlice';
 // import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 
@@ -23,6 +23,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(listRooms());
+    dispatch(listCategories());
   }, [dispatch]);
 
   useEffect(() => {

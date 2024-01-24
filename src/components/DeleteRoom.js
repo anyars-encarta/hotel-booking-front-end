@@ -5,6 +5,9 @@ import { listRooms, deleteRoom } from '../redux/rooms/roomSlice';
 const DeleteRoom = () => {
   const rooms = useSelector((state) => state.rooms.rooms);
   const categories = useSelector((state) => state.category.categories);
+  const loading = useSelector((state) => state.rooms.loading);
+  const error = useSelector((state) => state.rooms.error);
+  const dispatch = useDispatch();
 
   const roomss = rooms.map((r) => ({
     ...r,
@@ -12,13 +15,30 @@ const DeleteRoom = () => {
     price: categories.find((c) => c.id === r.category_id).price,
   }));
 
-  const dispatch = useDispatch();
-
   const handleDelete = (id) => () => {
     dispatch(deleteRoom(id)).then(() => {
       dispatch(listRooms());
     });
   };
+
+  if (loading) {
+    return (
+      <div className="div-center">
+        <h3 className="text-center text-info text-wrap">loading ...</h3>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="div-center">
+        <h3 className="text-center text-danger text-wrap">
+          Fix the Error:
+          {error }
+        </h3>
+      </div>
+    );
+  }
 
   return (
     <div className="container-fluid mt-5">
