@@ -5,6 +5,7 @@ const url = 'http://127.0.0.1:4000/api/rooms';
 const initialState = {
   isLoading: false,
   rooms: [],
+  deletedRoom: {},
   error: undefined,
 };
 
@@ -19,6 +20,27 @@ const listRooms = createAsyncThunk('rooms/listRooms', async () => {
     });
     if (!response.ok) {
       throw new Error(`Error fetching rooms: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return { error: error.message };
+  }
+});
+
+// delete room
+
+const deleteRoom = createAsyncThunk('rooms/deleteRoom', async (id) => {
+  try {
+    const response = await fetch(`${url}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error deleting room: ${response.statusText}`);
     }
     const data = await response.json();
     return data;
@@ -42,9 +64,20 @@ const roomsSlice = createSlice({
       .addCase(listRooms.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(deleteRoom.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteRoom.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.deletedRoom = action.payload;
+      })
+      .addCase(deleteRoom.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
 
-export { listRooms };
+export { listRooms, deleteRoom };
 export default roomsSlice.reducer;
