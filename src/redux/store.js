@@ -2,15 +2,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 // import { logger } from 'redux-logger';
 import authReducer from './userAuth/authSlice';
-import { categoryReducer, roomReducer } from './rooms/reducers';
+import roomsReducer from './rooms/roomSlice';
+import categoryReducer from './categories/categorySlice';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    rooms: roomsReducer,
     category: categoryReducer,
-    rooms: roomReducer,
   },
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export default store;
