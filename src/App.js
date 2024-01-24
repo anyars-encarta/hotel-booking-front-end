@@ -8,19 +8,17 @@ import SignUp from './components/SignUp';
 import { setToken } from './redux/userAuth/authSlice';
 import NewRoom from './components/NewRoom';
 import NewCategory from './components/NewCategory';
-// import { fetchCategories } from './redux/rooms/actions';
 import Category from './components/Category';
 import Reservations from './pages/Reservations';
-import Navbar from './components/Navbar';
 import CategoryDetail from './components/CategoryDetail';
 import DeleteRoom from './components/DeleteRoom';
 import { listRooms } from './redux/rooms/roomSlice';
-import { getCategory, listCategories } from './redux/categories/categorySlice';
+import { getCategory } from './redux/categories/categorySlice';
 // import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
 
 const App = () => {
   const { id } = useParams();
-  // const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,10 +30,6 @@ const App = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    dispatch(listCategories());
-  }, [dispatch]);
-
-  useEffect(() => {
     const token = Cookies.get('token');
     const username = Cookies.get('username');
 
@@ -43,27 +37,6 @@ const App = () => {
       dispatch(setToken({ username, token }));
     }
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const categoriesData = await fetchCategories();
-  //       setCategories(categoriesData);
-  //     } catch (error) {
-  //       throw new Error('Error fetching categories:', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // const handleFormSubmit = async (formData) => {
-  //   try {
-  //     await saveFormData(formData);
-  //   } catch (error) {
-  //     throw new Error('Error submitting form:', error);
-  //   }
-  // };
 
   return (
     <div className="grid grid-cols-[0.25fr,1fr] bg-[#f9fafb]">
@@ -77,7 +50,7 @@ const App = () => {
         <Route path="/add-category" element={<NewCategory />} />
         <Route path="/category_details/:id" element={<CategoryDetail />} />
         <Route path="/reservations" element={<Reservations />} />
-        <Route path="/delete_room" element={<DeleteRoom />} />
+        <Route path="/delete-room" element={<DeleteRoom />} />
       </Routes>
     </div>
   );
