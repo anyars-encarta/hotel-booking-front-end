@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { listRooms, deleteRoom } from '../redux/rooms/roomSlice';
 
-function DeleteRoom() {
+const DeleteRoom = () => {
   const rooms = useSelector((state) => state.rooms.rooms);
   const categories = useSelector((state) => state.category.categories);
 
@@ -24,7 +24,7 @@ function DeleteRoom() {
     <div className="container-fluid mt-5">
       <div className="table-responsive col-md-8 offset-md-2">
         <table className="table table-striped">
-          <thead>
+          <thead className="table-danger">
             <tr>
               <th scope="col">Room</th>
               <th scope="col">Price</th>
@@ -46,6 +46,6 @@ function DeleteRoom() {
       </div>
     </div>
   );
-}
+};
 
 export default DeleteRoom;
