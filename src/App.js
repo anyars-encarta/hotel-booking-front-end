@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Cookies from 'js-cookie';
 import Login from './components/Login';
@@ -14,11 +14,22 @@ import Category from './components/Category';
 import Reservations from './pages/Reservations';
 import Navbar from './components/Navbar';
 import CategoryDetail from './components/CategoryDetail';
-import Room from './components/Room';
+import DeleteRoom from './components/DeleteRoom';
+import { listRooms } from './redux/rooms/roomSlice';
+import { getCategory } from './redux/categories/categorySlice';
 
 const App = () => {
+  const { id } = useParams();
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listRooms());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getCategory(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -42,6 +53,10 @@ const App = () => {
     fetchData();
   }, []);
 
+  // useEffect(() => {
+  //   dispatch(listRooms());
+  // }, [dispatch]);
+
   const handleFormSubmit = async (formData) => {
     try {
       await saveFormData(formData);
@@ -56,12 +71,13 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/" element={<Room />} />
+        <Route path="/" element={<Category />} />
         <Route path="/add-rooms" element={<NewRoom categories={categories} handleFormSubmit={handleFormSubmit} />} />
         <Route path="/show-rooms" element={<Category />} />
         <Route path="/add-category" element={<NewCategory />} />
         <Route path="/category_details/:id" element={<CategoryDetail />} />
         <Route path="/reservations" element={<Reservations />} />
+        <Route path="/delete_room" element={<DeleteRoom />} />
       </Routes>
     </div>
   );
