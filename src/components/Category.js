@@ -11,6 +11,7 @@ const Category = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category.categories);
   const loading = useSelector((state) => state.category.loading);
+  const error = useSelector((state) => state.category.error);
   const [startIndex, setStartIndex] = useState(0);
 
   const handlePrevClick = () => {
@@ -39,6 +40,17 @@ const Category = () => {
     return (
       <div className="div-center">
         <h3 className="text-center text-info text-wrap">No Categories Available</h3>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="div-center">
+        <h3 className="text-center text-danger text-wrap">
+          Fix the Error:
+          {error }
+        </h3>
       </div>
     );
   }

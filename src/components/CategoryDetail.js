@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getCategory } from '../redux/categories/categorySlice';
-import { listRooms } from '../redux/rooms/roomSlice';
 import w from '../images/w.jpg';
 
 const CategoryDetail = () => {
@@ -12,13 +10,7 @@ const CategoryDetail = () => {
   const rooms = useSelector((state) => state.rooms.rooms);
   const room = rooms.filter((r) => r.category_id === parseInt(id, 10));
   const loading = useSelector((state) => state.category.loading);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCategory(id));
-    dispatch(listRooms());
-  }, [dispatch, id]);
+  const error = useSelector((state) => state.category.error);
 
   if (loading) {
     return (
@@ -27,10 +19,14 @@ const CategoryDetail = () => {
       </div>
     );
   }
-  if (rooms.length === 0) {
+
+  if (error) {
     return (
       <div className="div-center">
-        <h3 className="text-center text-info text-wrap">No Rooms</h3>
+        <h3 className="text-center text-danger text-wrap">
+          Fix the Error:
+          {error }
+        </h3>
       </div>
     );
   }
@@ -66,7 +62,7 @@ const CategoryDetail = () => {
           </div>
 
           <div className="col-md-4 mb-3">
-            <img src={cat.image} className="img-fluid" alt="Ful" />
+            <img src={cat.image} className="img-fluid" alt="categoryImage" />
             <div className="paragraph-container">
               <p className="card-text text-center div-border mt-4">{ cat.description }</p>
             </div>
@@ -100,6 +96,9 @@ const CategoryDetail = () => {
               <img src={w} className="img-fluid" alt="Ful" />
             </div>
           </div>
+          <p className="text-center back-btn mt-3">
+            <a className="btn btn-secondary" href="/show-rooms">Back to Rooms</a>
+          </p>
         </div>
       </div>
 

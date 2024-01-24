@@ -1,5 +1,5 @@
 .center-container {
-  margin-top: 10%;
+  margin-top: 7%;
 }
 
 .hr {
@@ -32,7 +32,6 @@
 }
 
 .d-flex-center {
-  margin-top: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -93,7 +92,8 @@
 
 @media screen and (max-width: 768px) {
   .arrow-btn-next,
-  .arrow-btn-prev {
+  .arrow-btn-prev,
+  .back-btn {
     display: none;
   }
 }
@@ -117,4 +117,16 @@
 .category {
   font-size: 1rem;
   font-weight: bold;
+}
+
+.btn-danger {
+  background-color: #a52834 !important;
+}
+
+.btn-primary {
+  background-color: #0d6efd !important;
+}
+
+.nav {
+  background-color: #fff !important;
 }
