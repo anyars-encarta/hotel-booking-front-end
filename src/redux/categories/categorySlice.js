@@ -5,6 +5,7 @@ const url = 'http://127.0.0.1:4000/api/categories';
 const initialState = {
   categories: [],
   category: {},
+  createdCategory: {},
   loading: false,
   error: undefined,
 };
@@ -49,6 +50,27 @@ const getCategory = createAsyncThunk('categories/getCategory', async (categoryId
   }
 });
 
+// create category
+
+const createCategory = createAsyncThunk('categories/createCategory', async (formData) => {
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error creating category: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error.message;
+  }
+});
+
 const categorySlice = createSlice({
   name: 'categories',
   initialState,
@@ -75,9 +97,20 @@ const categorySlice = createSlice({
       .addCase(getCategory.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = false;
+      })
+      .addCase(createCategory.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createCategory.fulfilled, (state, action) => {
+        state.createdCategory = action.payload;
+        state.loading = false;
+      })
+      .addCase(createCategory.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
       });
   },
 });
 
-export { listCategories, getCategory };
+export { listCategories, getCategory, createCategory };
 export default categorySlice.reducer;
