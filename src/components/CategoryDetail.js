@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getCategory } from '../redux/categories/categorySlice';
-import { listRooms } from '../redux/rooms/roomSlice';
+// import { getCategory } from '../redux/categories/categorySlice';
 import w from '../images/w.jpg';
 
 const CategoryDetail = () => {
@@ -13,24 +12,12 @@ const CategoryDetail = () => {
   const room = rooms.filter((r) => r.category_id === parseInt(id, 10));
   const loading = useSelector((state) => state.category.loading);
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCategory(id));
-    dispatch(listRooms());
-  }, [dispatch, id]);
+  // const dispatch = useDispatch();
 
   if (loading) {
     return (
       <div className="div-center">
         <h3 className="text-center text-info text-wrap">loading ...</h3>
-      </div>
-    );
-  }
-  if (rooms.length === 0) {
-    return (
-      <div className="div-center">
-        <h3 className="text-center text-info text-wrap">No Rooms</h3>
       </div>
     );
   }
