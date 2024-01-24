@@ -92,7 +92,8 @@
 
 @media screen and (max-width: 768px) {
   .arrow-btn-next,
-  .arrow-btn-prev {
+  .arrow-btn-prev,
+  .back-btn {
     display: none;
   }
 }
@@ -124,4 +125,13 @@
 
 .btn-primary {
   background-color: #0d6efd !important;
+}
+
+.logo {
+  background-color: #0d6efd !important;
+  background-image: transparent !important;
+}
+
+.nav {
+  background-color: #fff !important;  
 }

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { createRoom, listRooms } from '../redux/rooms/roomSlice';
 
-function NewRoom() {
+const NewRoom = () => {
   const cat = useSelector((state) => state.category.categories);
   const loading = useSelector((state) => state.category.loading);
   const navigate = useNavigate();
@@ -37,10 +37,10 @@ function NewRoom() {
 
   return (
     <div className="col-md-8 offset-md-2 mt-5">
-      <h1 className="mb-5 text-center">Add New Room</h1>
+      <h1 className="mb-5 text-center heading">Add New Room</h1>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="mb-3">
-          <input type="text" value={room} onChange={(e) => handleRoomChange(e)} className="form-control" placeholder="Room Name" id="room" />
+          <input type="text" required value={room} onChange={(e) => handleRoomChange(e)} className="form-control" placeholder="Room Name" id="room" />
         </div>
         <div className="mb-3">
           <select
@@ -49,7 +49,7 @@ function NewRoom() {
             value={category}
             onChange={(e) => catChange(e)}
           >
-            <option value="">Open this select menu</option>
+            <option value="">Select Category</option>
             {cat.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}
@@ -57,10 +57,13 @@ function NewRoom() {
             ))}
           </select>
         </div>
-        <button type="submit" onClick={(e) => handleSubmit(e)} className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">Create</button>
       </form>
+      <p className="text-center mt-3">
+        <a className="btn btn-secondary" href="/">Back to Home</a>
+      </p>
     </div>
   );
-}
+};
 
 export default NewRoom;

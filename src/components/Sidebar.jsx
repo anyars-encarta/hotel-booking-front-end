@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, setToken } from '../redux/userAuth/authSlice';
 
-const protectedPages = ['Add Category', 'Add Rooms', 'Show Rooms', 'Room Reservation'];
+const protectedPages = ['Show Rooms', 'Add Category', 'Add Room', 'Delete Room', 'Reservation'];
 
 function Sidebar() {
   const dispatch = useDispatch();
