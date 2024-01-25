@@ -9,9 +9,6 @@ import '../styles/mainpage.css';
 
 const Category = () => {
   const dispatch = useDispatch();
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
-  console.log(isAuthenticated, user);
-
   const categories = useSelector((state) => state.category.categories);
   const loading = useSelector((state) => state.category.loading);
   const error = useSelector((state) => state.category.error);

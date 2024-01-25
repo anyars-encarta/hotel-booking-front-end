@@ -14,9 +14,8 @@ import CategoryDetail from './components/CategoryDetail';
 import DeleteRoom from './components/DeleteRoom';
 import { listRooms } from './redux/rooms/roomSlice';
 import { getCategory, listCategories } from './redux/categories/categorySlice';
-
-// import Sidebar from './components/Sidebar';
-import Navbar from './components/Navbar';
+import AppLayout from './AppLayout';
+import ProetectedRoutes from './ProetectedRoutes';
 
 const App = () => {
   const { id } = useParams();
@@ -40,18 +39,25 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <div className="grid grid-cols-[0.25fr,1fr] bg-[#f9fafb]">
-      <Navbar />
+    <div>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/" element={<Category />} />
-        <Route path="/newroom" element={<NewRoom />} />
-        <Route path="/show-rooms" element={<Category />} />
-        <Route path="/add-category" element={<NewCategory />} />
-        <Route path="/category_details/:id" element={<CategoryDetail />} />
-        <Route path="/reservations" element={<Reservations />} />
-        <Route path="/delete-room" element={<DeleteRoom />} />
+        <Route element={(
+          <ProetectedRoutes>
+            <AppLayout />
+          </ProetectedRoutes>
+          )}
+        >
+          <Route path="/" element={<Category />} />
+          <Route path="/newroom" element={<NewRoom />} />
+          <Route path="/show-rooms" element={<Category />} />
+          <Route path="/add-category" element={<NewCategory />} />
+          <Route path="/category_details/:id" element={<CategoryDetail />} />
+          <Route path="/reservations" element={<Reservations />} />
+          <Route path="/delete-room" element={<DeleteRoom />} />
+        </Route>
+
       </Routes>
     </div>
   );
