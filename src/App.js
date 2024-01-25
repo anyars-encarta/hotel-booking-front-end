@@ -14,13 +14,13 @@ import CategoryDetail from './components/CategoryDetail';
 import DeleteRoom from './components/DeleteRoom';
 import { listRooms } from './redux/rooms/roomSlice';
 import { getCategory, listCategories } from './redux/categories/categorySlice';
+
 // import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 
 const App = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(listRooms());
     dispatch(listCategories());

@@ -8,6 +8,7 @@ import '../styles/room.css';
 const Room = ({
   rooms, fetchRoomAction, fetchUserDataAction,
 }) => {
+
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');

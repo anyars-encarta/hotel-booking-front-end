@@ -28,8 +28,8 @@ const Login = () => {
       });
 
       if (response.status === 200) {
-        dispatch(setToken({ username, token: response.data.jti }));
-
+        const { data } = response.data;
+        dispatch(setToken({ user: data, token: response.headers.authorization }));
         setSuccessMessage('Success! Redirecting to the home page...');
         setUsername(username);
         setTimeout(() => {
