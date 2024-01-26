@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { listRooms, deleteRoom } from '../redux/rooms/roomSlice';
+
+const API_URL = process.env.REACT_APP_API_URL;
+
+const getUser = () => {
+  const userString = localStorage.getItem('user');
+  return userString ? JSON.parse(userString) : null;
+};
 
 const DeleteRoom = () => {
   const rooms = useSelector((state) => state.rooms.rooms);
@@ -9,10 +16,35 @@ const DeleteRoom = () => {
   const error = useSelector((state) => state.rooms.error);
   const dispatch = useDispatch();
 
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const fetchAdminStatus = async () => {
+      const userInfo = getUser();
+
+      if (userInfo && userInfo.id) {
+        try {
+          const response = await fetch(`${API_URL}/users/${userInfo.id}`);
+          if (response.ok) {
+            const userData = await response.json();
+
+            setIsAdmin(userData.admin);
+          } else {
+            console.error('Error fetching user details');
+          }
+        } catch (error) {
+          console.error('Network error while fetching user details', error);
+        }
+      }
+    };
+
+    fetchAdminStatus();
+  }, []);
+
   const roomss = rooms.map((r) => ({
     ...r,
-    category_name: categories.find((c) => c.id === r.category_id).name,
-    price: categories.find((c) => c.id === r.category_id).price,
+    category_name: categories.find((c) => c.id === r.category_id)?.name || '',
+    price: categories.find((c) => c.id === r.category_id)?.price || 0,
   }));
 
   const handleDelete = (id) => () => {
@@ -24,7 +56,7 @@ const DeleteRoom = () => {
   if (loading) {
     return (
       <div className="div-center">
-        <h3 className="text-center text-info text-wrap">loading ...</h3>
+        <h3 className="text-center text-info text-wrap">Loading ...</h3>
       </div>
     );
   }
@@ -49,7 +81,7 @@ const DeleteRoom = () => {
               <th scope="col">Room</th>
               <th scope="col">Price</th>
               <th scope="col">Category</th>
-              <th scope="col">Action</th>
+              {isAdmin && <th scope="col">Action</th>}
             </tr>
           </thead>
           <tbody>
@@ -58,7 +90,13 @@ const DeleteRoom = () => {
                 <td>{room.name}</td>
                 <td>{room.price}</td>
                 <td>{room.category_name}</td>
-                <td><button type="button" onClick={handleDelete(room.id)} className="btn btn-danger btn-sm"> Delete </button></td>
+                {isAdmin && (
+                  <td>
+                    <button type="button" onClick={handleDelete(room.id)} className="btn btn-danger btn-sm">
+                      Delete
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
