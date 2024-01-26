@@ -90,6 +90,11 @@
   color: white;
 }
 
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
 @media screen and (max-width: 768px) {
   .arrow-btn-next,
   .arrow-btn-prev,

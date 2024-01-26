@@ -17,6 +17,10 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const handleSignup = async () => {
+    navigate('/sign-up');
+  };
+
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://localhost:4000/login', {
@@ -74,13 +78,23 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleLogin}
-      >
-        Login
-      </Button>
+
+      <div className="buttons">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleLogin}
+        >
+          Login
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSignup}
+        >
+          Signup
+        </Button>
+      </div>
     </div>
   );
 };
