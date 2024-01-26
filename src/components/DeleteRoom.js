@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { listRooms, deleteRoom } from '../redux/rooms/roomSlice';
 
-const API_URL = process.env.REACT_APP_API_URL;
+// const API_URL = process.env.REACT_APP_API_URL;
 
-const getUser = () => {
-  const userString = localStorage.getItem('user');
-  return userString ? JSON.parse(userString) : null;
-};
+// const getUser = () => {
+//   const userString = localStorage.getItem('user');
+//   return userString ? JSON.parse(userString) : null;
+// };
 
 const DeleteRoom = () => {
   const rooms = useSelector((state) => state.rooms.rooms);
@@ -16,30 +16,30 @@ const DeleteRoom = () => {
   const error = useSelector((state) => state.rooms.error);
   const dispatch = useDispatch();
 
-  const [isAdmin, setIsAdmin] = useState(false);
+  // const [isAdmin, setIsAdmin] = useState(false);
 
-  useEffect(() => {
-    const fetchAdminStatus = async () => {
-      const userInfo = getUser();
+  // useEffect(() => {
+  //   const fetchAdminStatus = async () => {
+  //     const userInfo = getUser();
 
-      if (userInfo && userInfo.id) {
-        try {
-          const response = await fetch(`${API_URL}/users/${userInfo.id}`);
-          if (response.ok) {
-            const userData = await response.json();
+  //     if (userInfo && userInfo.id) {
+  //       try {
+  //         const response = await fetch(`${API_URL}/users/${userInfo.id}`);
+  //         if (response.ok) {
+  //           const userData = await response.json();
 
-            setIsAdmin(userData.admin);
-          } else {
-            console.error('Error fetching user details');
-          }
-        } catch (error) {
-          console.error('Network error while fetching user details', error);
-        }
-      }
-    };
+  //           setIsAdmin(userData.admin);
+  //         } else {
+  //           console.error('Error fetching user details');
+  //         }
+  //       } catch (error) {
+  //         console.error('Network error while fetching user details', error);
+  //       }
+  //     }
+  //   };
 
-    fetchAdminStatus();
-  }, []);
+  //   fetchAdminStatus();
+  // }, []);
 
   const roomss = rooms.map((r) => ({
     ...r,
@@ -81,7 +81,8 @@ const DeleteRoom = () => {
               <th scope="col">Room</th>
               <th scope="col">Price</th>
               <th scope="col">Category</th>
-              {isAdmin && <th scope="col">Action</th>}
+              {/* {isAdmin && <th scope="col">Action</th>} */}
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -90,13 +91,13 @@ const DeleteRoom = () => {
                 <td>{room.name}</td>
                 <td>{room.price}</td>
                 <td>{room.category_name}</td>
-                {isAdmin && (
-                  <td>
-                    <button type="button" onClick={handleDelete(room.id)} className="btn btn-danger btn-sm">
-                      Delete
-                    </button>
-                  </td>
-                )}
+                {/* {isAdmin && ( */}
+                <td>
+                  <button type="button" onClick={handleDelete(room.id)} className="btn btn-danger btn-sm">
+                    Delete
+                  </button>
+                </td>
+                {/* )} */}
               </tr>
             ))}
           </tbody>
