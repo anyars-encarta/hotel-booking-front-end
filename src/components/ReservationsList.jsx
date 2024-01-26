@@ -21,7 +21,6 @@ const ReservationsList = () => {
             const {
               room, user, city, created_at: date,
             } = reservation;
-            console.log(reservation);
             return (
               <ReservationRow
                 key={reservation.id}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { HiEllipsisVertical } from 'react-icons/hi2';
-import { format, isToday } from "date-fns";
+import { format } from 'date-fns';
 
 import PropTypes from 'prop-types';
 import ReservationMenu from './ReservationMenu';
@@ -17,7 +17,7 @@ const ReservationRow = ({ room: { name }, date, user: { username, email } }) => 
       </p>
       <p className=" flex flex-col text-sm">
         <span>
-        {format(new Date(date), "MMM dd, yyyy")}
+          {format(new Date(date), 'MMM dd, yyyy')}
         </span>
       </p>
 

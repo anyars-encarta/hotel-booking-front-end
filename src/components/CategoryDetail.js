@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import w from '../images/w.jpg';
 import useCreateReservation from '../hooks/useCreateReservation';
 import useDeleteReservation from '../hooks/useDeleteReservation';
 import useGetRooms from '../hooks/useGetCategory';
 
 const CategoryDetail = () => {
-  // const [reserveChange, setReserveChange] = useState(false);
-
   const { reserveRoom, isPending } = useCreateReservation();
   const { category: cat, isGettingRooms, error } = useGetRooms();
 
@@ -21,12 +17,6 @@ const CategoryDetail = () => {
   // const room = rooms.filter((r) => r.category_id === parseInt(id, 10));
   // const loading = useSelector((state) => state.category.loading);
   // const error = useSelector((state) => state.category.error);
-
-  // // useEffect(() => {
-  // //   setReserveChange((prev) => !prev);
-  // // }, [isPending, isDeleting]);
-
-  // console.log(reserveChange);
 
   if (isGettingRooms) {
     return (

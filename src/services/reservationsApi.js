@@ -15,7 +15,7 @@ export const CreateReservation = async (data) => {
     const response = await fetch(`${API_URL}/reservations`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     });
