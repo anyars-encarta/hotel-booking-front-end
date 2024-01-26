@@ -59,8 +59,16 @@ const NewCategory = () => {
           <input type="text" required value={category} onChange={(e) => handleCategoryChange(e)} className="form-control" placeholder="Category Name" id="category" />
         </div>
         <div className="mb-3">
-          <div className="form-floating">
-            <textarea required className="form-control" value={description} onChange={(e) => handleDescriptionChange(e)} style={{ height: '100px' }} placeholder="Deacription Here ..." id="description" />
+          <div>
+            <textarea
+              required
+              className="form-control"
+              value={description}
+              onChange={(e) => handleDescriptionChange(e)}
+              style={{ height: '100px' }}
+              placeholder="Category Description..."
+              id="description"
+            />
           </div>
         </div>
 
