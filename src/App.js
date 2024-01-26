@@ -12,16 +12,16 @@ import Category from './components/Category';
 import Reservations from './pages/Reservations';
 import CategoryDetail from './components/CategoryDetail';
 import DeleteRoom from './components/DeleteRoom';
-import { listRooms } from './redux/rooms/roomSlice';
+// import { listRooms } from './redux/rooms/roomSlice';
 import { getCategory, listCategories } from './redux/categories/categorySlice';
-import AppLayout from './AppLayout';
+import AppLayout from './components/AppLayout';
 import ProetectedRoutes from './ProetectedRoutes';
 
 const App = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(listRooms());
+    // dispatch(listRooms());
     dispatch(listCategories());
   }, [dispatch]);
 
