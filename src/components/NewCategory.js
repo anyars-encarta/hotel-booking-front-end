@@ -22,10 +22,6 @@ const NewCategory = () => {
     setDescription(event.target.value);
   };
 
-  const handleImageChange = (event) => {
-    setImage(event.target.value);
-  };
-
   const handlePriceChange = (event) => {
     setPrice(event.target.value);
   };
@@ -69,15 +65,33 @@ const NewCategory = () => {
         </div>
 
         <div className="mb-3">
-          <input type="text" required value={image} onChange={(e) => handleImageChange(e)} className="form-control" placeholder="Image Link" id="image" />
-        </div>
-        <div className="mb-3">
           <input type="number" required value={price} onChange={(e) => handlePriceChange(e)} className="form-control" placeholder="Price" id="price" />
+        </div>
+
+        <div className="mb-3">
+          <h6>Upload image</h6>
+          <input
+            className="form-control"
+            id="image"
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              const reader = new FileReader();
+
+              reader.onload = (event) => {
+                const imageDataUrl = event.target.result;
+                setImage(imageDataUrl);
+              };
+
+              reader.readAsDataURL(file);
+            }}
+          />
         </div>
 
         <button type="submit" className="btn btn-primary">Create</button>
       </form>
-      <p className="text-center mt-3">Image Link: https://www.eliaermouhotel.com/uploads/photos/D1024/2019/02/standardroom_1878.jpg</p>
+      {/* <p className="text-center mt-3">Image Link: https://www.eliaermouhotel.com/uploads/photos/D1024/2019/02/standardroom_1878.jpg</p> */}
       <p className="text-center mt-3">
         <a className="btn btn-secondary" href="/show-rooms">Back to Rooms</a>
       </p>
