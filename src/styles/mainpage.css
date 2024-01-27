@@ -142,14 +142,14 @@ nav {
 
 .form-parent {
   /* background: linear-gradient(to bottom right, #FF48B6 , #FF7E6C); */
-  background: linear-gradient(to bottom right, #87CF8E , #B8CF87);
+  background: linear-gradient(to bottom right, #87cf8e, #b8cf87);
   display: grid;
   height: 100vh;
 }
 
 .login {
   place-self: center;
-  background: linear-gradient(to bottom right, #FFDEF2 , #E6F0FF);
+  background: linear-gradient(to bottom right, #ffdef2, #e6f0ff);
   width: 30%;
   padding: 1rem;
   border-radius: 5px;
@@ -160,6 +160,7 @@ nav {
 .social-media {
   display: grid;
   height: 30vh;
+
   /* remove the left space */
   margin-right: 20%;
 }
@@ -167,5 +168,3 @@ nav {
 .social {
   place-self: end;
 }
-
-
