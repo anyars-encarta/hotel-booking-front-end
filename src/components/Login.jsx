@@ -52,48 +52,45 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col gap-8 justify-center items-center w-full">
-      <Typography variant="h3" className="font-bold">
-        Login
-      </Typography>
-      {successMessage && <Typography className="text-green-500">{successMessage}</Typography>}
-      {errorMessage && <Typography className="text-red-500">{errorMessage}</Typography>}
-      <TextField
-        label="Username"
-        variant="outlined"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <TextField
-        label="Email"
-        variant="outlined"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <TextField
-        label="Password"
-        variant="outlined"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <div className="buttons">
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleLogin}
-        >
+    <div className="form-parent">
+      <div className="flex flex-col gap-8 justify-center login items-center">
+        <Typography variant="h5" className="font-bold">
           Login
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSignup}
-        >
-          Signup
-        </Button>
+          <hr className="border border-danger border-1 opacity-50 mt-2" />
+        </Typography>
+        {successMessage && <Typography className="text-green-500">{successMessage}</Typography>}
+        {errorMessage && <Typography className="text-red-500">{errorMessage}</Typography>}
+        <TextField
+          label="Email"
+          variant="outlined"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          label="Password"
+          variant="outlined"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <div className="buttons">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleLogin}
+          >
+            Login
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSignup}
+          >
+            Signup
+          </Button>
+        </div>
       </div>
     </div>
   );

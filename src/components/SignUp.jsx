@@ -56,51 +56,54 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col gap-8 justify-center items-center w-full">
-      <Typography variant="h3" className="font-bold">
-        Sign Up
-      </Typography>
-      {successMessage && (
-        <Typography className="text-green-500">{successMessage}</Typography>
-      )}
-      {errorMessage && (
-        <Typography className="text-red-500">{errorMessage}</Typography>
-      )}
-      <TextField
-        label="Username"
-        variant="outlined"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <TextField
-        label="Email"
-        variant="outlined"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <TextField
-        label="Password"
-        variant="outlined"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <TextField
-        label="Confirm Password"
-        variant="outlined"
-        type="password"
-        value={passwordConfirmation}
-        onChange={(e) => setPasswordConfirmation(e.target.value)}
-      />
-
-      <div className="buttons">
-        <Button variant="contained" color="primary" onClick={handleSignUp}>
+    <div className="form-parent">
+      <div className="flex flex-col gap-8 justify-center items-center login">
+        <Typography variant="h5" className="font-bold">
           Sign Up
-        </Button>
-        <Button variant="contained" color="primary" onClick={handleLogin}>
-          Login
-        </Button>
+          <hr className="border border-danger border-1 opacity-50 mt-2" />
+        </Typography>
+        {successMessage && (
+          <Typography className="text-green-500">{successMessage}</Typography>
+        )}
+        {errorMessage && (
+          <Typography className="text-red-500">{errorMessage}</Typography>
+        )}
+        <TextField
+          label="Username"
+          variant="outlined"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <TextField
+          label="Email"
+          variant="outlined"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          label="Password"
+          variant="outlined"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <TextField
+          label="Confirm Password"
+          variant="outlined"
+          type="password"
+          value={passwordConfirmation}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+        />
+
+        <div className="buttons">
+          <Button variant="contained" color="primary" onClick={handleSignUp}>
+            Sign Up
+          </Button>
+          <Button variant="contained" color="info" onClick={handleLogin}>
+            Login
+          </Button>
+        </div>
       </div>
     </div>
   );
