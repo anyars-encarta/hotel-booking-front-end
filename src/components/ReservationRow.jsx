@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import { HiEllipsisVertical } from 'react-icons/hi2';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { format } from 'date-fns';
 
 import PropTypes from 'prop-types';
 import ReservationMenu from './ReservationMenu';
 
-const ReservationRow = ({ room: { name }, date, user: { username, email } }) => {
+const ReservationRow = ({ room, date, user: { username, email } }) => {
   const [showMenu, setShowMenu] = useState(false);
+
+  if (!room) {
+    return null;
+  }
+
+  const { name } = room;
 
   return (
     <li className=" relative grid grid-col-[0.6fr,2fr,2.4fr,1.4fr,1fr,3.2rem] grid-cols-[1fr,1fr,1fr,0.2fr] text-center  place-items-center gap-4 items-start border-t border-gray-200 dark:border-[#374151] py-4">
