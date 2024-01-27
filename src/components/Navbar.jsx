@@ -61,6 +61,18 @@ const Navbar = () => {
               </NavLink>
             </li>
           )}
+
+        <div className="social-media">
+          <div className="social">
+            <div className="flex items-center justify-center gap-3">
+              <i className="bi bi-facebook text-1xl text-blue-500" />
+              <i className="bi bi-twitter-x text-1xl text-blue-400" />
+              <i className="bi bi-instagram text-1xl text-pink-600" />
+              <i className="bi bi-linkedin text-1xl text-blue-600" />
+            </div>
+            <p className="text-center text-sm font-semibold text-gray-500 mt-2 dark:text-gray-300">© 2023 All rights reserved.</p>
+          </div>
+        </div>
       </ul>
     </nav>
   );
