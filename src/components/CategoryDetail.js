@@ -10,18 +10,15 @@ const CategoryDetail = () => {
 
   const { deleteReserved, isDeleting } = useDeleteReservation();
   const { user } = useSelector((state) => state.auth);
-  // const { id } = useParams();
-  // const categories = useSelector((state) => state.category.categories);
-  // const cat = categories.find((category) => category.id === parseInt(id, 10));
-  // const rooms = use..Selector((state) => state.rooms.rooms);
-  // const room = rooms.filter((r) => r.category_id === parseInt(id, 10));
-  // const loading = useSelector((state) => state.category.loading);
-  // const error = useSelector((state) => state.category.error);
+
+  const reservedRooms = cat?.rooms.filter((r) => r.reserved === true);
 
   if (isGettingRooms) {
     return (
-      <div className="div-center">
-        <h3 className="text-center text-info text-wrap">loading ...</h3>
+      <div className="d-flex justify-content-center">
+        <div className="text-success spinner-border mt-5" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
       </div>
     );
   }
@@ -76,7 +73,7 @@ const CategoryDetail = () => {
                           : (
                             <button
                               type="button"
-                              className="btn btn-sm bg-blue-500 float-end"
+                              className="btn btn-secondary btn-sm bg-blue-500 float-end"
                               disabled={isPending}
                               onClick={() => reserveRoom({ room_id: r.id, user_id: user.id })}
                             >
@@ -113,19 +110,25 @@ const CategoryDetail = () => {
                 <tr>
                   <td>Available Rooms:</td>
                   <td className="text-center">
-                    {cat?.number_of_rooms - cat?.number_reserved}
+                    {cat?.number_of_rooms - reservedRooms?.length}
                   </td>
                 </tr>
                 <tr>
                   <td>Reserved Rooms:</td>
                   <td className="text-center">
-                    {cat?.number_reserved}
+                    {reservedRooms?.length}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Total Rooms:</td>
+                  <td className="text-center">
+                    {cat?.number_of_rooms}
                   </td>
                 </tr>
               </tbody>
             </table>
             <div className="d-grid color-wheel ">
-              <img src={w} className="img-fluid" alt="Ful" />
+              <img src={w} className="img-fluid" alt="full cycle" />
             </div>
           </div>
           <p className="text-center back-btn mt-3">
