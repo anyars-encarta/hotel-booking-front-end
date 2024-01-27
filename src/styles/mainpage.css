@@ -11,7 +11,7 @@
 }
 
 .paragraph-container {
-  height: 60px;
+  min-height: 60px;
 }
 
 .div-center {
@@ -88,6 +88,7 @@
 .bi {
   font-size: 1rem;
   color: white;
+  cursor: pointer;
 }
 
 .buttons {
@@ -132,6 +133,39 @@
   background-color: #0d6efd !important;
 }
 
-.nav {
-  background-color: #fff !important;
+nav {
+  background-color: #fff;
+  height: 100vh;
 }
+
+/* login */
+
+.form-parent {
+  /* background: linear-gradient(to bottom right, #FF48B6 , #FF7E6C); */
+  background: linear-gradient(to bottom right, #87CF8E , #B8CF87);
+  display: grid;
+  height: 100vh;
+}
+
+.login {
+  place-self: center;
+  background: linear-gradient(to bottom right, #FFDEF2 , #E6F0FF);
+  width: 30%;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+/* social media */
+
+.social-media {
+  display: grid;
+  height: 30vh;
+  /* remove the left space */
+  margin-right: 20%;
+}
+
+.social {
+  place-self: end;
+}
+
+
