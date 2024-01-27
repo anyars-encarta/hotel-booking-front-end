@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Cookies from 'js-cookie';
 import Login from './components/Login';
@@ -12,22 +12,22 @@ import Category from './components/Category';
 import Reservations from './pages/Reservations';
 import CategoryDetail from './components/CategoryDetail';
 import DeleteRoom from './components/DeleteRoom';
-// import { listRooms } from './redux/rooms/roomSlice';
-import { getCategory, listCategories } from './redux/categories/categorySlice';
+import { listRooms } from './redux/rooms/roomSlice';
+import { listCategories } from './redux/categories/categorySlice';
 import AppLayout from './components/AppLayout';
 import ProetectedRoutes from './ProetectedRoutes';
 
 const App = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(listRooms());
+    dispatch(listRooms());
     dispatch(listCategories());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getCategory(id));
-  }, [dispatch, id]);
+  // useEffect(() => {
+  //   dispatch(getCategory(id));
+  // }, [dispatch, id]);
 
   useEffect(() => {
     const token = Cookies.get('token');
