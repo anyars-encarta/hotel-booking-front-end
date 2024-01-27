@@ -31,8 +31,10 @@ const Category = () => {
 
   if (loading) {
     return (
-      <div className="div-center">
-        <h3 className="text-info text-wrap">loading ...</h3>
+      <div className="d-flex justify-content-center">
+        <div className="text-success spinner-border mt-5" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
       </div>
     );
   }

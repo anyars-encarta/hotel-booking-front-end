@@ -37,8 +37,10 @@ const NewCategory = () => {
 
   if (loading) {
     return (
-      <div className="div-center">
-        <h3 className="text-center text-primary text-wrap">loading ...</h3>
+      <div className="d-flex justify-content-center">
+        <div className="text-success spinner-border mt-5" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
       </div>
     );
   }
@@ -77,7 +79,7 @@ const NewCategory = () => {
         </div>
 
         <div className="mb-3">
-          <h6>Upload image</h6>
+          <h6 className="mb-2">Upload image</h6>
           <input
             className="form-control"
             id="image"
