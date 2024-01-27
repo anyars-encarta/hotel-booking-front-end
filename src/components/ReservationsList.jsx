@@ -18,8 +18,18 @@ const ReservationsList = () => {
       <ul className="bg-white dark:bg-[#18212F]">
         {
           reservations.map((reservation) => {
-            const { room, user, city } = reservation;
-            return <ReservationRow key={reservation.id} room={room} city={city} user={user} />;
+            const {
+              room, user, city, created_at: date,
+            } = reservation;
+            return (
+              <ReservationRow
+                key={reservation.id}
+                room={room}
+                city={city}
+                user={user}
+                date={date}
+              />
+            );
           })
         }
       </ul>

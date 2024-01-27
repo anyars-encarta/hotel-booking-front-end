@@ -1,18 +1,24 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import w from '../images/w.jpg';
+import useCreateReservation from '../hooks/useCreateReservation';
+import useDeleteReservation from '../hooks/useDeleteReservation';
+import useGetRooms from '../hooks/useGetCategory';
 
 const CategoryDetail = () => {
-  const { id } = useParams();
-  const categories = useSelector((state) => state.category.categories);
-  const cat = categories.find((category) => category.id === parseInt(id, 10));
-  const rooms = useSelector((state) => state.rooms.rooms);
-  const room = rooms.filter((r) => r.category_id === parseInt(id, 10));
-  const loading = useSelector((state) => state.category.loading);
-  const error = useSelector((state) => state.category.error);
+  const { reserveRoom, isPending } = useCreateReservation();
+  const { category: cat, isGettingRooms, error } = useGetRooms();
 
-  if (loading) {
+  const { deleteReserved, isDeleting } = useDeleteReservation();
+  const { user } = useSelector((state) => state.auth);
+  // const { id } = useParams();
+  // const categories = useSelector((state) => state.category.categories);
+  // const cat = categories.find((category) => category.id === parseInt(id, 10));
+  // const rooms = use..Selector((state) => state.rooms.rooms);
+  // const room = rooms.filter((r) => r.category_id === parseInt(id, 10));
+  // const loading = useSelector((state) => state.category.loading);
+  // const error = useSelector((state) => state.category.error);
+
+  if (isGettingRooms) {
     return (
       <div className="div-center">
         <h3 className="text-center text-info text-wrap">loading ...</h3>
@@ -36,7 +42,7 @@ const CategoryDetail = () => {
       <div className="container d-flex-center">
         <div className="row d-flex justify-content-between">
           <h2 className="text-center heading mb-3">
-            {cat.name}
+            {cat?.name}
             {' '}
             Category
           </h2>
@@ -46,14 +52,40 @@ const CategoryDetail = () => {
             <p className="text-center">
               List of Rooms in
               {' '}
-              { cat.name }
+              { cat?.name }
             </p>
             <table className="table table-striped table-hover">
               <tbody>
-                { room.map((r) => (
+                { cat?.rooms.map((r) => (
                   <tr key={r.id}>
                     <td>{r.name}</td>
-                    <td><button type="button" className="btn btn-success btn-sm float-end"> Reserve Room </button></td>
+                    <td>
+                      {
+                        r.reserved
+                          ? (
+                            <button
+                              type="button"
+                              className="btn btn-success btn-sm float-end"
+                              disabled={isDeleting}
+                              onClick={() => deleteReserved(r.id)}
+                            >
+                              {' '}
+                              Reserved
+                            </button>
+                          )
+                          : (
+                            <button
+                              type="button"
+                              className="btn btn-sm bg-blue-500 float-end"
+                              disabled={isPending}
+                              onClick={() => reserveRoom({ room_id: r.id, user_id: user.id })}
+                            >
+                              {' '}
+                              Reserve Room
+                            </button>
+                          )
+                    }
+                    </td>
                   </tr>
                 ))}
 
@@ -62,9 +94,9 @@ const CategoryDetail = () => {
           </div>
 
           <div className="col-md-4 mb-3">
-            <img src={cat.image} className="img-fluid" alt="categoryImage" />
+            <img src={cat?.image} className="img-fluid" alt="categoryImage" />
             <div className="paragraph-container">
-              <p className="card-text text-center div-border mt-4">{ cat.description }</p>
+              <p className="card-text text-center div-border mt-4">{ cat?.description }</p>
             </div>
           </div>
           <div className="col-md-3">
@@ -74,20 +106,20 @@ const CategoryDetail = () => {
                   <td>Price: </td>
                   <td>
                     $
-                    {cat.price}
+                    {cat?.price}
                     /Night
                   </td>
                 </tr>
                 <tr>
                   <td>Available Rooms:</td>
                   <td className="text-center">
-                    {cat.number_of_rooms - cat.number_reserved}
+                    {cat?.number_of_rooms - cat?.number_reserved}
                   </td>
                 </tr>
                 <tr>
                   <td>Reserved Rooms:</td>
                   <td className="text-center">
-                    {cat.number_reserved}
+                    {cat?.number_reserved}
                   </td>
                 </tr>
               </tbody>
