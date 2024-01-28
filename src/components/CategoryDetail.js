@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import w from '../images/w.jpg';
+import w from '../assets/images/w.jpg';
 import useCreateReservation from '../hooks/useCreateReservation';
 import useDeleteReservation from '../hooks/useDeleteReservation';
 import useGetRooms from '../hooks/useGetCategory';
