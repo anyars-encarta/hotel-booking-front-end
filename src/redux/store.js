@@ -1,3 +1,5 @@
+// store.js
+
 /* eslint-disable no-unused-vars */
 import { configureStore } from '@reduxjs/toolkit';
 // import { logger } from 'redux-logger';
