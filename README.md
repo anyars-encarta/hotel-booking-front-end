@@ -69,7 +69,7 @@
 > - Add new Hotel Rooms.
 > - Add new Hotel Room Categories
 > - Delete Hotel Room
-> - Make Resrevations for Rooms
+> - Make Reservations for Rooms
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -205,7 +205,7 @@ Contributions, issues, and feature requests are welcome!
 
 - **How were the Linters utilised?**
 
-  - The Linters (Rubocop) were utilised with the help of resources provided by [@microverseinc](https://github.com/microverseinc).
+  - The Linters (Eslint and stylelint) were utilised with the help of resources provided by [@microverseinc](https://github.com/microverseinc).
 
 - **What new features should be expected in the next release of the project?**
 
