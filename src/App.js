@@ -18,16 +18,11 @@ import AppLayout from './components/AppLayout';
 import ProetectedRoutes from './ProetectedRoutes';
 
 const App = () => {
-  // const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listRooms());
     dispatch(listCategories());
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(getCategory(id));
-  // }, [dispatch, id]);
 
   useEffect(() => {
     const token = Cookies.get('token');
