@@ -12,7 +12,7 @@ describe('NewRoom component', () => {
         <MemoryRouter>
           <NewRoom />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
 
     expect(getByText('Add New Room')).toBeInTheDocument();
@@ -28,17 +28,17 @@ describe('NewRoom component', () => {
         <MemoryRouter>
           <NewRoom />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
-  
+
     const roomInput = getByPlaceholderText('Room Name');
     const categorySelect = getByText('Select Category');
     const createButton = getByText('Create');
-  
+
     fireEvent.change(roomInput, { target: { value: 'Test Room' } });
     fireEvent.change(categorySelect, { target: { value: '1' } });
     fireEvent.click(createButton);
-  
+
     await waitFor(() => {
       expect(window.location.pathname).toBe('/');
     });
@@ -50,7 +50,7 @@ describe('NewRoom component', () => {
         <MemoryRouter>
           <NewRoom />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
     );
 
     expect(container).toMatchSnapshot();
