@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import '../styles/mainpage.css';
-import logo from '../assets/images/logo.png';
+import logo from '../assets/images/hotel-png-9.png';
 import { logout } from '../redux/userAuth/authSlice';
 
 const Navbar = () => {
