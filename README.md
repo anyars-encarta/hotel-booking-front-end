@@ -206,7 +206,7 @@ Contributions, issues, and feature requests are welcome!
 
 - **How were the Linters utilised?**
 
-  - The Linters (Eslint and stylelint) were utilised with the help of resources provided by [@microverseinc](https://github.com/microverseinc).
+  - The Linters (npx eslint "**/*.{js,jsx}" --fix and  npx stylelint "**/*.{css,scss}" --fix) were utilized with the help of resources provided by [@microverseinc](https://github.com/microverseinc).
 
 - **What new features should be expected in the next release of the project?**
 
