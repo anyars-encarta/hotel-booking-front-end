@@ -37,12 +37,12 @@ const SignUp = () => {
         dispatch(setToken({ username, token: response.data.jti }));
 
         setSuccessMessage(
-          `Hello "${username}", you've successfully registered. Redirecting to Home page...`,
+          `Hello "${username}", you've successfully registered. Please login to continue.`,
         );
         setUsername('');
         setTimeout(() => {
           setSuccessMessage('');
-          navigate('/');
+          navigate('/login');
         }, 2000);
       } else {
         setErrorMessage(`Registration failed with status: ${response.status}`);

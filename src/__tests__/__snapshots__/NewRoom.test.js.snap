@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewRoom component matches snapshot 1`] = `
+<div>
+  <div
+    class="col-md-8 offset-md-2 mt-5"
+  >
+    <h1
+      class="mb-5 text-center heading"
+    >
+      Add New Room
+    </h1>
+    <form>
+      <div
+        class="mb-3"
+      >
+        <input
+          class="form-control"
+          id="room"
+          placeholder="Room Name"
+          required=""
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        class="mb-3"
+      >
+        <select
+          aria-label="Default select example"
+          class="form-select"
+        >
+          <option
+            value=""
+          >
+            Select Category
+          </option>
+        </select>
+      </div>
+      <button
+        class="btn btn-primary"
+        type="submit"
+      >
+        Create
+      </button>
+    </form>
+    <p
+      class="text-center mt-3"
+    >
+      <a
+        class="btn btn-secondary"
+        href="/"
+      >
+        Back to Home
+      </a>
+    </p>
+  </div>
+</div>
+`;
