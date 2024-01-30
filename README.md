@@ -9,7 +9,7 @@
 
 <!-- MAIN HEADING -->
 
-  <h3><b>Hotel Booking System - Front-end</b></h3>
+  <h3><b>Hotel Booking System</b></h3>
 
 </div>
 
@@ -213,7 +213,8 @@ Contributions, issues, and feature requests are welcome!
     - **Add Conference Hall Reservations**
     - **Add Recreational Center Reservations**
     - **Cancel Reservations**
-    - **Change Reservations**
+  
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
