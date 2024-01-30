@@ -67,9 +67,10 @@
 ### Key Features <a name="key-features"></a>
 
 > - Add new Hotel Rooms.
-> - Add new Hotel Room Categories
-> - Delete Hotel Room
-> - Make Reservations for Rooms
+> - Add new Hotel Room Categories.
+> - Delete Hotel Room.
+> - Make Reservations for Rooms.
+> - View Rooms.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -205,7 +206,7 @@ Contributions, issues, and feature requests are welcome!
 
 - **How were the Linters utilised?**
 
-  - The Linters (Eslint and stylelint) were utilised with the help of resources provided by [@microverseinc](https://github.com/microverseinc).
+  - The Linters (npx eslint "**/*.{js,jsx}" --fix and  npx stylelint "**/*.{css,scss}" --fix) were utilized with the help of resources provided by [@microverseinc](https://github.com/microverseinc).
 
 - **What new features should be expected in the next release of the project?**
 
@@ -213,7 +214,9 @@ Contributions, issues, and feature requests are welcome!
     - **Add Conference Hall Reservations**
     - **Add Recreational Center Reservations**
     - **Cancel Reservations**
-    - **Change Reservations**
+    - **Add payment system**
+  
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
