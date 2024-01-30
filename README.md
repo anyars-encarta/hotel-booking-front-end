@@ -130,7 +130,7 @@ npm start
 ### Run tests
 To test the project, execute the following command:
 ```sh
-rspec
+npm test
 ```
 ### Deployment
 
