@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { listRooms, deleteRoom } from '../redux/rooms/roomSlice';
 
@@ -20,6 +20,10 @@ const DeleteRoom = () => {
       dispatch(listRooms());
     });
   };
+
+  useEffect(() => {
+    dispatch(listRooms());
+  }, [dispatch]);
 
   if (loading) {
     return (
