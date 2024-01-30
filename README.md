@@ -9,7 +9,7 @@
 
 <!-- MAIN HEADING -->
 
-  <h3><b>Hotel Booking System</b></h3>
+  <h3><b>Hotel Booking System - Front-end</b></h3>
 
 </div>
 
