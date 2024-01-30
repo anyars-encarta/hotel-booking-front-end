@@ -67,9 +67,10 @@
 ### Key Features <a name="key-features"></a>
 
 > - Add new Hotel Rooms.
-> - Add new Hotel Room Categories
-> - Delete Hotel Room
-> - Make Reservations for Rooms
+> - Add new Hotel Room Categories.
+> - Delete Hotel Room.
+> - Make Reservations for Rooms.
+> - View Rooms.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
