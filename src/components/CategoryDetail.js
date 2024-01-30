@@ -96,6 +96,7 @@ const CategoryDetail = () => {
               <p className="card-text text-center div-border mt-4">{ cat?.description }</p>
             </div>
           </div>
+
           <div className="col-md-3">
             <table className="table table-striped table-hover">
               <tbody>
