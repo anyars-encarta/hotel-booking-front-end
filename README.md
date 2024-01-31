@@ -81,7 +81,7 @@
 
 > View the [Kanban board](https://github.com/users/anyars-encarta/projects/3) for the project here.
 
-> View the initial [screenshot](https://github.com/users/anyars-encarta/projects/3) of the Kanban board here.
+> View the initial [screenshot](https://drive.google.com/file/d/1QbYbGTYyTWIV08FXBh6QW4t0LYBkSUw0/view?usp=sharing) of the Kanban board here.
 
 > The project had a final number of **4** team members.
 
