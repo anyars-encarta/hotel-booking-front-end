@@ -1,0 +1,170 @@
+.center-container {
+  margin-top: 7%;
+}
+
+.hr {
+  border: 0;
+  border-style: dotted;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+.paragraph-container {
+  min-height: 60px;
+}
+
+.div-center {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+.truncate-paragraph {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.d-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 100%;
+}
+
+.color-wheel {
+  width: 50%;
+  height: 50%;
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+.card {
+  border: none !important;
+}
+
+.setButtons {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: space-between;
+}
+
+.arrow-btn-prev,
+.arrow-btn-next {
+  margin-top: 6%;
+  background-color: green !important;
+  padding: 0.7rem;
+  border: 0;
+  width: 100px;
+  cursor: pointer;
+}
+
+.arrow-btn-disable {
+  background-color: grey !important;
+}
+
+.arrow-btn-next {
+  margin-left: 1%;
+  float: right;
+  border-radius: 20px 0 0 20px;
+}
+
+.arrow-btn-prev {
+  margin-right: 1%;
+  border-radius: 0 20px 20px 0;
+}
+
+.bi {
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .arrow-btn-next,
+  .arrow-btn-prev,
+  .back-btn {
+    display: none;
+  }
+}
+
+/* details page */
+.div-border {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.btn-success {
+  background-color: green !important;
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.category {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.btn-danger {
+  background-color: #a52834 !important;
+}
+
+.btn-primary {
+  background-color: #0d6efd !important;
+}
+
+nav {
+  background-color: #fff;
+  height: 100vh;
+}
+
+/* login */
+
+.form-parent {
+  /* background: linear-gradient(to bottom right, #FF48B6 , #FF7E6C); */
+  background: linear-gradient(to bottom right, #87cf8e, #b8cf87);
+  display: grid;
+  height: 100vh;
+}
+
+.login {
+  place-self: center;
+  background: linear-gradient(to bottom right, #ffdef2, #e6f0ff);
+  width: 30%;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+/* social media */
+
+.social-media {
+  display: grid;
+  height: 27vh;
+
+  /* remove the left space */
+  margin-right: 20%;
+}
+
+.social {
+  place-self: end;
+}

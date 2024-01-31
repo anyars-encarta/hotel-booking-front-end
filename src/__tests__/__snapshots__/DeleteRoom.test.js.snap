@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests DeleteRoom component should render error message when error is present 1`] = `
+<div
+  className="div-center"
+>
+  <h3
+    className="text-center text-danger text-wrap"
+  >
+    Fix the Error:
+    Something went wrong!
+  </h3>
+</div>
+`;
+
+exports[`Tests DeleteRoom component should render loading spinner when loading is true 1`] = `
+<div
+  className="d-flex justify-content-center"
+>
+  <div
+    className="text-success spinner-border mt-5"
+    role="status"
+  >
+    <span
+      className="visually-hidden"
+    >
+      Loading...
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Tests DeleteRoom component should render no rooms available message when rooms is empty 1`] = `
+<div
+  className="container-fluid mt-5"
+>
+  <div
+    className="table-responsive col-md-8 offset-md-2"
+  >
+    <table
+      className="table table-striped"
+    >
+      <thead
+        className="table-danger"
+      >
+        <tr>
+          <th
+            scope="col"
+          >
+            Room
+          </th>
+          <th
+            scope="col"
+          >
+            Price
+          </th>
+          <th
+            scope="col"
+          >
+            Category
+          </th>
+          <th
+            scope="col"
+          >
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody />
+    </table>
+  </div>
+</div>
+`;
+
+exports[`Tests DeleteRoom component should render table with room data when rooms and categories are present 1`] = `
+<div
+  className="container-fluid mt-5"
+>
+  <div
+    className="table-responsive col-md-8 offset-md-2"
+  >
+    <table
+      className="table table-striped"
+    >
+      <thead
+        className="table-danger"
+      >
+        <tr>
+          <th
+            scope="col"
+          >
+            Room
+          </th>
+          <th
+            scope="col"
+          >
+            Price
+          </th>
+          <th
+            scope="col"
+          >
+            Category
+          </th>
+          <th
+            scope="col"
+          >
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Room 1
+          </td>
+          <td>
+            100
+          </td>
+          <td>
+            Category 1
+          </td>
+          <td>
+            <button
+              className="btn btn-danger btn-sm"
+              onClick={[Function]}
+              type="button"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Room 2
+          </td>
+          <td>
+            200
+          </td>
+          <td>
+            Category 2
+          </td>
+          <td>
+            <button
+              className="btn btn-danger btn-sm"
+              onClick={[Function]}
+              type="button"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;

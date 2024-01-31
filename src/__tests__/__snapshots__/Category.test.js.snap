@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Category component renders correctly when loading is true 1`] = `
+<div
+  className="d-flex justify-content-center"
+>
+  <div
+    className="text-success spinner-border mt-5"
+    role="status"
+  >
+    <span
+      className="visually-hidden"
+    >
+      Loading...
+    </span>
+  </div>
+</div>
+`;
