@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-const url = 'http://127.0.0.1:4000/api/categories';
+const url = 'https://hotel-booking-5vj9.onrender.com/api/categories';
 
 const initialState = {
   categories: [],

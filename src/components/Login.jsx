@@ -23,7 +23,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/login', {
+      const response = await axios.post('https://hotel-booking-5vj9.onrender.com/login', {
         user: {
           username,
           email,
