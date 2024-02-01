@@ -24,7 +24,7 @@ const SignUp = () => {
 
   const handleSignUp = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/api/users', {
+      const response = await axios.post('https://hotel-booking-5vj9.onrender.com/api/users', {
         user: {
           username,
           email,

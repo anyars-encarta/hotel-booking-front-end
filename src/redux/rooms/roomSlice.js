@@ -1,7 +1,7 @@
 // roomSlice.js
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-const url = 'http://127.0.0.1:4000/api/rooms';
+const url = 'https://hotel-booking-5vj9.onrender.com/api/rooms';
 
 const initialState = {
   isLoading: false,
