@@ -20,6 +20,7 @@
   - [🛠 Built With](#built-with)
     - [Tech Stack](#tech-stack)
     - [Key Features](#key-features)
+- [📝 Kanban Board](#kanban-board)
 - [🚀 Live Demo](#live-demo)
 - [🚀 Back-end Link](#back-end)
 - [💻 Getting Started](#getting-started)
@@ -71,6 +72,18 @@
 > - Delete Hotel Room.
 > - Make Reservations for Rooms.
 > - View Rooms.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- KANBAN BOARD -->
+
+### KANBAN BOARD
+
+> View the [Kanban board](https://github.com/users/anyars-encarta/projects/3) for the project here.
+
+> View the initial [screenshot](https://drive.google.com/file/d/1QbYbGTYyTWIV08FXBh6QW4t0LYBkSUw0/view?usp=sharing) of the Kanban board here.
+
+> The project had a final number of **4** team members.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
