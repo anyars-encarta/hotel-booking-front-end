@@ -41,7 +41,7 @@
 <!-- INTRO -->
 # 📖 Hotel Booking System - Back-end <a name="about-project"></a>
 
-> Hotel Booking System - Front-end is the front-end of an app designed where clients could make reservations for hotel rooms.
+> Hotel Booking System is designed where clients could make reservations for hotel rooms. It has functionalities to create categories of rooms, add rooms based on selected categories, and make reservations for selected rooms. The system communicates with a PostgreSQL Ruby on Rails backed through API endpoints designed for that purpose.
 
 ## 🛠 Built With <a name="built-with"></a>
 1. React
